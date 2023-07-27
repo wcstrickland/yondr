@@ -102,13 +102,13 @@
 <form
   style="display:flex;flex-direction:column;position:sticky; top:0px; background-color:#242424;"
 >
-  <div style="margin-bottom:1em;">
+  <!-- <div style="margin-bottom:1em;">
     <button on:click={(e)=>{
       e.preventDefault()
       setParticipants(participants)
       push("/combat")
     }}>Start Combat</button>
-  </div>
+  </div> -->
   <div>
     <label for="cr">Minimum Challenge</label>
     <select bind:value={challenge} name="cr" id="cr">
@@ -151,7 +151,7 @@
   </div>
 </form>
 
-<PlayerSearchSection {updateParticipants} />
+<!-- <PlayerSearchSection {updateParticipants} /> -->
 {#each monster_list as monster}
   <MonsterSearchSection {monster} {updateParticipants} />
 {/each}

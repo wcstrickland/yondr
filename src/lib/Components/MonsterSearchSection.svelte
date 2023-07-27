@@ -17,15 +17,15 @@
   {monster.type}
   <br />
   <div>
-    <label
+    <!-- <label
       class="linky"
       on:click={(e) => {
         e.preventDefault()
         init = randomNumber(1, 20).toString();
       }}
       for="init">Initiative</label
-    >
-    <input
+    > -->
+    <!-- <input
       style="width:20%;"
       bind:value={init}
       type="text"
@@ -44,7 +44,7 @@
             toast.push(`Input initiative for ${monster.name}`)
         }
       }}>Add</button
-    >
+    > -->
   </div>
 </div>
 
