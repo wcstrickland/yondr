@@ -91,7 +91,7 @@
   <meta name="description" content="Yndr" />
 </svelte:head>
 
-<form style="display:flex;flex-direction:column;width:85vw;position:sticky; top:5px; background-color:#242424;">
+<form style="display:flex;flex-direction:column;position:sticky; top:5px; background-color:#242424;">
   <div>
     <label for="cr">Minimum Challenge</label>
     <select bind:value={challenge} name="cr" id="cr">
