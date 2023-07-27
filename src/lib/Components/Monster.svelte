@@ -72,7 +72,7 @@
   }
 </script>
 <svelte:head>
-  <title>Yndr</title>
+  <title>{data.name}</title>
   <meta name="description" content="Yndr" />
 </svelte:head>
 
