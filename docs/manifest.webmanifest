@@ -1,17 +1,1 @@
-{
-  "name": "yondr",
-  "short_name": "yondr",
-  "start_url": "https://wcstrickland.github.io/yondr/",
-  "display": "standalone",
-  "background_color": "#ffffff",
-  "lang": "en",
-  "scope": "https://wcstrickland.github.io/yondr/",
-  "icons": [
-    {
-      "src": "d20.png",
-      "sizes": "any",
-      "type": "image/svg+xml",
-      "purpose": "any maskable"
-    }
-  ]
-}
+{"name":"yondr","short_name":"yondr","start_url":"https://wcstrickland.github.io/yondr/","display":"standalone","background_color":"#ffffff","lang":"en","scope":"https://wcstrickland.github.io/yondr/"}
