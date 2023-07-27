@@ -12,7 +12,6 @@
   let monsterList = monsters["monsters"]
   let currentMonster = monsterList.filter(x => x["numberId"] == params.id)[0]
 	let data = currentMonster;
-  let previousChunk;
   
 
   let modifiers = {
@@ -72,6 +71,10 @@
     return data[key] !== "" && Object.hasOwn(data, key);
   }
 </script>
+<svelte:head>
+  <title>Yndr</title>
+  <meta name="description" content="Yndr" />
+</svelte:head>
 
 <div class="post">
   <div class="stat-block">
