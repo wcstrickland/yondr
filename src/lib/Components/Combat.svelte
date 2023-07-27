@@ -49,8 +49,6 @@
     .wrp {
       height: 100vh;
       width: 90vw;
-      margin-left:3em;
-      margin-right:3em;
     }
   }
   .custom-dot {
