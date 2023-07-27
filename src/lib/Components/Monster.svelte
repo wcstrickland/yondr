@@ -12,6 +12,7 @@
   let monsterList = monsters["monsters"]
   let currentMonster = monsterList.filter(x => x["numberId"] == params.id)[0]
 	let data = currentMonster;
+  let previousChunk;
   
 
   let modifiers = {
@@ -58,6 +59,10 @@
     : [data.reaction];
 
   let actions = Array.isArray(data.action) ? data.action : [data.action];
+  if(!data.action){
+    actions = ""
+  };
+
 
   let legendary = Array.isArray(data.legendary)
     ? data.legendary
@@ -122,7 +127,7 @@
             <div class="stat-header"><b class="stat-value">STR</b></div>
             <a
               on:click={() => {
-                toast.push(generateRollText(1, 20, modifiers[data.str]), {
+                toast.push("Strength: " + generateRollText(1, 20, modifiers[data.str]), {
                   duration: 10000,
                 });
               }}
@@ -136,7 +141,7 @@
             <div class="stat-header"><b class="stat-value">DEX</b></div>
             <a
               on:click={() => {
-                toast.push(generateRollText(1, 20, modifiers[data.dex]), {
+                toast.push("Dexterity: " + generateRollText(1, 20, modifiers[data.dex]), {
                   duration: 10000,
                 });
               }}
@@ -150,7 +155,7 @@
             <div class="stat-header"><b class="stat-value">CON</b></div>
             <a
               on:click={() => {
-                toast.push(generateRollText(1, 20, modifiers[data.con]), {
+                toast.push("Constitution: " + generateRollText(1, 20, modifiers[data.con]), {
                   duration: 10000,
                 });
               }}
@@ -164,7 +169,7 @@
             <div class="stat-header"><b class="stat-value">INT</b></div>
             <a
               on:click={() => {
-                toast.push(generateRollText(1, 20, modifiers[data.int]), {
+                toast.push("Inteligence: " + generateRollText(1, 20, modifiers[data.int]), {
                   duration: 10000,
                 });
               }}
@@ -178,7 +183,7 @@
             <div class="stat-header"><b class="stat-value">WIS</b></div>
             <a
               on:click={() => {
-                toast.push(generateRollText(1, 20, modifiers[data.wis]), {
+                toast.push("Wisdom: " + generateRollText(1, 20, modifiers[data.wis]), {
                   duration: 10000,
                 });
               }}
@@ -192,7 +197,7 @@
             <div class="stat-header"><b class="stat-value">CHA</b></div>
             <a
               on:click={() => {
-                toast.push(generateRollText(1, 20, modifiers[data.cha]), {
+                toast.push("Charisma: " + generateRollText(1, 20, modifiers[data.cha]), {
                   duration: 10000,
                 });
               }}
@@ -239,11 +244,11 @@
         <div class="property-line">
           <h4>Saving Throws:</h4>
           <p>
-            {#each splitAroundRoll(data.save, findDamageStrings(data.save)) as chunk}
+            {#each splitAroundRoll(data.save, findDamageStrings(data.save)) as chunk, i}
               {#if chunk.replace}
                 <a
                   on:click={() => {
-                    toast.push(
+                    toast.push(`${splitAroundRoll(data.save, findDamageStrings(data.save))[i-1].value.replace(",","")} Save: ` +
                       generateRollText(1, 20, extractRoll(chunk.value).mod),
                       { duration: 10000 }
                     );
@@ -259,11 +264,11 @@
           <div class="property-line">
             <h4>Skills</h4>
             <p>
-              {#each splitAroundRoll(data.skill, findDamageStrings(data.skill)) as chunk}
+              {#each splitAroundRoll(data.skill, findDamageStrings(data.skill)) as chunk, i}
                 {#if chunk.replace}
                   <a
                     on:click={() => {
-                      toast.push(
+                      toast.push(`${splitAroundRoll(data.skill, findDamageStrings(data.skill))[i-1].value.replace(",","")}: ` +
                         generateRollText(1, 20, extractRoll(chunk.value).mod),
                         { duration: 10000 }
                       );
@@ -284,7 +289,7 @@
         {/if}
         {#if isPresent("environment")}
           <div class="property-line">
-            <h4>Languages</h4>
+            <h4>Environment</h4>
             <p>{data.environment}</p>
           </div>
         {/if}
@@ -335,7 +340,7 @@
               {#if chunk.replace}
                 <a
                   on:click={() => {
-                    toast.push(
+                    toast.push(`${action.name}: ` +
                       generateRollText(
                         extractRoll(chunk.value).num,
                         extractRoll(chunk.value).sides,
