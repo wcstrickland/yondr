@@ -1,0 +1,1 @@
+if('serviceWorker' in navigator) {window.addEventListener('load', () => {navigator.serviceWorker.register('https://wcstrickland.github.io/yondr/sw.js', { scope: 'https://wcstrickland.github.io/yondr/' })})}
