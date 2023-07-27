@@ -4,9 +4,11 @@
   import Main from './lib/Components/Main.svelte';
   import MonsterSearch from './lib/Components/MonsterSearch.svelte';
   import Monster from './lib/Components/Monster.svelte';
+  import Combat from './lib/Components/Combat.svelte';
 const routes = {
   '/' : MonsterSearch,
-  '/monster/:id' :Monster
+  '/monster/:id' :Monster,
+  '/combat' : Combat
 }
 </script>
 

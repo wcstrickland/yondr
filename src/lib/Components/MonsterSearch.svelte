@@ -1,5 +1,9 @@
 <script>
   import all_monsters from "../json/monsters.json";
+  import MonsterSearchSection from "./MonsterSearchSection.svelte";
+  import PlayerSearchSection from "./PlayerSearchSection.svelte";
+  import { push } from "svelte-spa-router";
+  import {participantStore, setParticipants, clearParticipants} from "../utils/stores.js"
   import { SvelteToast } from "@zerodevx/svelte-toast";
   const types = [
     "all",
@@ -59,11 +63,16 @@
     "29",
     "30",
   ];
+  let participants = [];
+
+  function updateParticipants(el) {
+    participants.push(el);
+  }
+
   let challenge = "0";
   let upperChallenge = "30";
   let type = "all";
   let searchString = "";
-  let currentMonster;
 
   $: monster_list = (() => {
     let outPut = all_monsters["monsters"];
@@ -79,7 +88,6 @@
       let newSearchString = searchString.slice(1);
       newSearchString = firstChar.toUpperCase() + newSearchString;
       let pattern = RegExp(`.*${newSearchString}.*`);
-      console.log({ pattern });
       outPut = outPut.filter((x) => x["name"] == x["name"].match(pattern));
     }
     return outPut;
@@ -91,7 +99,16 @@
   <meta name="description" content="Yndr" />
 </svelte:head>
 
-<form style="display:flex;flex-direction:column;position:sticky; top:5px; background-color:#242424;">
+<form
+  style="display:flex;flex-direction:column;position:sticky; top:0px; background-color:#242424;"
+>
+  <div style="margin-bottom:1em;">
+    <button on:click={(e)=>{
+      e.preventDefault()
+      setParticipants(participants)
+      push("/combat")
+    }}>Start Combat</button>
+  </div>
   <div>
     <label for="cr">Minimum Challenge</label>
     <select bind:value={challenge} name="cr" id="cr">
@@ -124,23 +141,19 @@
     <input bind:value={searchString} type="text" />
   </div>
   <div style="margin: 1em;">
-    <button on:click={(e)=>{
-      e.preventDefault()
-      document.body.scrollTop =0;
-      document.documentElement.scrollTop =0;
-    }}>Back to Top</button>
+    <button
+      on:click={(e) => {
+        e.preventDefault();
+        document.body.scrollTop = 0;
+        document.documentElement.scrollTop = 0;
+      }}>Back to Top</button
+    >
   </div>
 </form>
 
-  {#each monster_list as monster}
-    <div style="margin-top:1em;">
-      <a href={`#/monster/${monster.numberId}`} target="_blank"
-        >{monster.name}</a
-      >
-      <br />
-      cr {monster.cr}
-      {monster.type}
-    </div>
-  {/each}
+<PlayerSearchSection {updateParticipants} />
+{#each monster_list as monster}
+  <MonsterSearchSection {monster} {updateParticipants} />
+{/each}
 
 <style></style>

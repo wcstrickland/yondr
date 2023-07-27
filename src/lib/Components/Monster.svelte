@@ -1,18 +1,26 @@
 <script>
   import { toast } from "@zerodevx/svelte-toast";
-  import monsters from '../json/monsters.json'
+  import monsters from "../json/monsters.json";
   import {
     generateRollText,
     splitAroundRoll,
     findDamageStrings,
     extractRoll,
-  } from "../utils/utils.js"
+  } from "../utils/utils.js";
 
   export let params = {};
-  let monsterList = monsters["monsters"]
-  let currentMonster = monsterList.filter(x => x["numberId"] == params.id)[0]
-	let data = currentMonster;
-  
+  export let id;
+  export let init;
+  let monsterList = monsters["monsters"];
+  let currentMonster;
+  if (id) {
+     currentMonster = monsterList.filter((x) => x["numberId"] == id)[0];
+  } else {
+     currentMonster = monsterList.filter(
+      (x) => x["numberId"] == params.id
+    )[0]
+  }
+  let data = currentMonster;
 
   let modifiers = {
     "1": "-5",
@@ -58,10 +66,9 @@
     : [data.reaction];
 
   let actions = Array.isArray(data.action) ? data.action : [data.action];
-  if(!data.action){
-    actions = ""
-  };
-
+  if (!data.action) {
+    actions = "";
+  }
 
   let legendary = Array.isArray(data.legendary)
     ? data.legendary
@@ -71,6 +78,7 @@
     return data[key] !== "" && Object.hasOwn(data, key);
   }
 </script>
+
 <svelte:head>
   <title>{data.name}</title>
   <meta name="description" content="Yndr" />
@@ -98,7 +106,9 @@
               type="text"
               bind:value={currentHp}
             />
-            <label style="display:flex;color:black;flex-direction:column;flex:1;" for="range"
+            <label
+              style="display:flex;color:black;flex-direction:column;flex:1;"
+              for="range"
               >{data.hp}
               <input
                 style="flex:1;display:flex;flex-direction:column;"
@@ -130,9 +140,12 @@
             <div class="stat-header"><b class="stat-value">STR</b></div>
             <a
               on:click={() => {
-                toast.push("Strength: " + generateRollText(1, 20, modifiers[data.str]), {
-                  duration: 10000,
-                });
+                toast.push(
+                  "Strength: " + generateRollText(1, 20, modifiers[data.str]),
+                  {
+                    duration: 10000,
+                  }
+                );
               }}
             >
               {data.str}
@@ -144,9 +157,12 @@
             <div class="stat-header"><b class="stat-value">DEX</b></div>
             <a
               on:click={() => {
-                toast.push("Dexterity: " + generateRollText(1, 20, modifiers[data.dex]), {
-                  duration: 10000,
-                });
+                toast.push(
+                  "Dexterity: " + generateRollText(1, 20, modifiers[data.dex]),
+                  {
+                    duration: 10000,
+                  }
+                );
               }}
             >
               {data.dex}
@@ -158,9 +174,13 @@
             <div class="stat-header"><b class="stat-value">CON</b></div>
             <a
               on:click={() => {
-                toast.push("Constitution: " + generateRollText(1, 20, modifiers[data.con]), {
-                  duration: 10000,
-                });
+                toast.push(
+                  "Constitution: " +
+                    generateRollText(1, 20, modifiers[data.con]),
+                  {
+                    duration: 10000,
+                  }
+                );
               }}
             >
               {data.con}
@@ -172,9 +192,13 @@
             <div class="stat-header"><b class="stat-value">INT</b></div>
             <a
               on:click={() => {
-                toast.push("Inteligence: " + generateRollText(1, 20, modifiers[data.int]), {
-                  duration: 10000,
-                });
+                toast.push(
+                  "Inteligence: " +
+                    generateRollText(1, 20, modifiers[data.int]),
+                  {
+                    duration: 10000,
+                  }
+                );
               }}
             >
               {data.int}
@@ -186,9 +210,12 @@
             <div class="stat-header"><b class="stat-value">WIS</b></div>
             <a
               on:click={() => {
-                toast.push("Wisdom: " + generateRollText(1, 20, modifiers[data.wis]), {
-                  duration: 10000,
-                });
+                toast.push(
+                  "Wisdom: " + generateRollText(1, 20, modifiers[data.wis]),
+                  {
+                    duration: 10000,
+                  }
+                );
               }}
             >
               {data.wis}
@@ -200,9 +227,12 @@
             <div class="stat-header"><b class="stat-value">CHA</b></div>
             <a
               on:click={() => {
-                toast.push("Charisma: " + generateRollText(1, 20, modifiers[data.cha]), {
-                  duration: 10000,
-                });
+                toast.push(
+                  "Charisma: " + generateRollText(1, 20, modifiers[data.cha]),
+                  {
+                    duration: 10000,
+                  }
+                );
               }}
             >
               {data.cha}
@@ -251,8 +281,12 @@
               {#if chunk.replace}
                 <a
                   on:click={() => {
-                    toast.push(`${splitAroundRoll(data.save, findDamageStrings(data.save))[i-1].value.replace(",","")} Save: ` +
-                      generateRollText(1, 20, extractRoll(chunk.value).mod),
+                    toast.push(
+                      `${splitAroundRoll(
+                        data.save,
+                        findDamageStrings(data.save)
+                      )[i - 1].value.replace(",", "")} Save: ` +
+                        generateRollText(1, 20, extractRoll(chunk.value).mod),
                       { duration: 10000 }
                     );
                   }}>{chunk.value}</a
@@ -271,8 +305,12 @@
                 {#if chunk.replace}
                   <a
                     on:click={() => {
-                      toast.push(`${splitAroundRoll(data.skill, findDamageStrings(data.skill))[i-1].value.replace(",","")}: ` +
-                        generateRollText(1, 20, extractRoll(chunk.value).mod),
+                      toast.push(
+                        `${splitAroundRoll(
+                          data.skill,
+                          findDamageStrings(data.skill)
+                        )[i - 1].value.replace(",", "")}: ` +
+                          generateRollText(1, 20, extractRoll(chunk.value).mod),
                         { duration: 10000 }
                       );
                     }}>{chunk.value}</a
@@ -343,12 +381,13 @@
               {#if chunk.replace}
                 <a
                   on:click={() => {
-                    toast.push(`${action.name}: ` +
-                      generateRollText(
-                        extractRoll(chunk.value).num,
-                        extractRoll(chunk.value).sides,
-                        extractRoll(chunk.value).mod
-                      ),
+                    toast.push(
+                      `${action.name}: ` +
+                        generateRollText(
+                          extractRoll(chunk.value).num,
+                          extractRoll(chunk.value).sides,
+                          extractRoll(chunk.value).mod
+                        ),
                       { duration: 10000 }
                     );
                   }}>{chunk.value}</a
@@ -421,12 +460,9 @@
       <div id="reactions">
         <div class="creature-heading">
           <h1>
-            <a
-              style=""
-              on:click={() => (showDescription = !showDescription)}
-            >
+            <a style="" on:click={() => (showDescription = !showDescription)}>
               Description
-          </a>
+            </a>
           </h1>
         </div>
         {#if showDescription}
@@ -591,7 +627,7 @@
     text-indent: 5px;
   }
   #actions,
-  #reactions{
+  #reactions {
     margin: 0 0 10px;
   }
   #actions:last-child,
@@ -617,5 +653,4 @@
       width: 100%;
     }
   }
-
 </style>
