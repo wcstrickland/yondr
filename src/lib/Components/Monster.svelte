@@ -419,11 +419,11 @@
         <div class="creature-heading">
           <h1>
             <a
-              style="color: var(--statblock-main-color) ;"
+              style=""
               on:click={() => (showDescription = !showDescription)}
             >
               Description
-            </a>
+          </a>
           </h1>
         </div>
         {#if showDescription}
@@ -492,40 +492,6 @@
     margin-bottom: 20px;
     margin-right: auto;
     margin-left: auto;
-  }
-  /* .stat-block.wide {
-    width: 46.5%;
-    min-width: 560px;
-    text-align: center;
-  }
-  .stat-block.wide .section-left,
-  .stat-block.wide .section-right {
-    display: inline-block;
-    vertical-align: top;
-    width: 48%;
-    text-align: left;
-  }
-  .stat-block.wide .section-left {
-    margin-right: 1.5%;
-  }
-  .stat-block.wide .section-right {
-    margin-left: 1.5%;
-  } */
-  @media screen and (max-width: 675px) {
-    /* .stat-block.wide {
-      min-width: 280px;
-    } */
-    /* .stat-block.wide .section-left,
-    .stat-block.wide .section-right {
-      display: block;
-      width: 100%;
-    }
-    .stat-block.wide .section-left {
-      margin: 0;
-    }
-    .stat-block.wide .section-right {
-      margin: 0;
-    } */
   }
   .stat-block p {
     margin-bottom: 10px;
@@ -611,64 +577,22 @@
     font-size: 12px;
     line-height: 1em;
   }
-  .abilities h4 {
-    font-size: 14px;
-    line-height: 1.2em;
-    text-transform: uppercase;
-    color: var(--statblock-main-color);
-  }
-  /* .abilities p {
-    line-height: 1.2em;
-  } */
-  /* .property-block h4,
-  .property-block p {
-    font-size: 13.5px;
-    line-height: 1.2em;
-    display: inline;
-    margin: 0;
-  }
-  .property-block h4 {
-    font-style: italic;
-  } */
-  /* .property-block {
-    padding: 10px 2px 0;
-  } */
-  /* #psionics, */
   #actions > *,
-  /* #bonus-actions > *, */
-  #reactions > *,
-  #legendary-actions > *,
-  #lair-actions > *,
-  #regional-effects > *,
-  #roleplaying-information > * {
+  #reactions > * {
     border-bottom: 1px solid var(--statblock-main-color);
     color: var(--statblock-main-color);
     font-size: 14px;
-    /* font-variant: small-caps; */
     font-weight: normal;
-    /* letter-spacing: 1px; */
     margin: 10px 0 0;
     padding: 0 0 10px;
     text-indent: 5px;
   }
-  /* #psionics, */
   #actions,
-  /* #bonus-actions, */
-  #reactions,
-  #legendary-actions,
-  #lair-actions,
-  #regional-effects,
-  #roleplaying-information {
+  #reactions{
     margin: 0 0 10px;
   }
-  /* #psionics:last-child, */
   #actions:last-child,
-  /* #bonus-actions:last-child, */
-  #reactions:last-child,
-  #legendary-actions:last-child,
-  #lair-actions:last-child,
-  /* #regional-effects:last-child, */
-  #roleplaying-information:last-child {
+  #reactions:last-child {
     margin: 0;
   }
 
@@ -677,28 +601,12 @@
       display: none;
     }
     .stat-block,
-    /* p .stat-block.wide, */
-    /* .stat-block.wide .section-left, */
-    /* .stat-block.wide .section-right, */
     .property-line,
-    /* .property-block {
-      width: 100%;
-      display: block;
-    } */
-    /* .stat-block.wide .section-left {
-      margin: 0;
-    }
-    .stat-block.wide .section-right {
-      margin: 0;
-    } */
     .stat-block {
       width: 40%;
       display: inline-block;
       vertical-align: top;
     }
-    /* .stat-block.wide {
-      page-break-after: always;
-    } */
   }
   @media screen and (max-width: 575px) {
     .stat-block {
@@ -707,23 +615,4 @@
     }
   }
 
-  /* .tag {
-    border: 1px solid #cbc6c3;
-    background-color: #fff;
-    box-shadow: inset 0 0 4px 0 #dcd1c7;
-    padding: 4px 8px;
-    font-size: 9px;
-    font-weight: bold;
-    text-align: center;
-    text-transform: uppercase;
-    display: inline-block;
-    margin-bottom: 3px;
-    margin-left: 3px;
-  } */
-  /* .tag a {
-    color: #000;
-  }
-  .tag a:visited {
-    color: #000;
-  } */
 </style>
