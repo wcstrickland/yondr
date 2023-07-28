@@ -8,7 +8,7 @@
   <a
     style="font-size:21px;"
     href={`#/monster/${monster.numberId}`}
-    target="_blank">{monster.name}</a
+   >{monster.name}</a
   >
   <br />
   cr {monster.cr}

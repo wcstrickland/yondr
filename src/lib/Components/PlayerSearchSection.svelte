@@ -33,7 +33,13 @@
     </div>
 
     <div class="start">
-      <label for="init">Initiative </label>
+  <a
+    class="frm-sec linky"
+    on:click={(e) => {
+      e.preventDefault();
+      init = randomNumber(1, 20).toString();
+    }}>Initiative</a
+  >
       <input
         bind:value={init}
         type="text"
@@ -42,13 +48,6 @@
         id="init"
       />
     </div>
-    <button
-      style="margin: .5em 0;"
-      on:click={(e) => {
-        e.preventDefault();
-        init = randomNumber(1, 20).toString();
-      }}>Roll</button
-    >
 
     <div class="start">
     </div>
@@ -80,7 +79,6 @@
   }
 
   .linky {
-    color: #535bf2;
     cursor: pointer;
   }
 </style>

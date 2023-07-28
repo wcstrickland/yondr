@@ -102,13 +102,6 @@
 <form
   style="display:flex;flex-direction:column;position:sticky; top:0px; background-color:#242424;"
 >
-  <!-- <div style="margin-bottom:1em;">
-    <button on:click={(e)=>{
-      e.preventDefault()
-      setParticipants(participants)
-      push("/combat")
-    }}>Start Combat</button>
-  </div> -->
   <div style="margin-bottom:1em;">
     <button on:click={(e)=>{
       e.preventDefault()
@@ -157,7 +150,6 @@
   </div>
 </form>
 
-<!-- <PlayerSearchSection {updateParticipants} /> -->
 {#each monster_list as monster}
   <MonsterSearchSection {monster} {updateParticipants} />
 {/each}

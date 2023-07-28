@@ -8,17 +8,22 @@
     extractRoll,
   } from "../utils/utils.js";
 
+  import {
+    participantStore,
+    addParticipant,
+    setParticipants,
+  } from "../utils/stores.js";
+  import { randomNumber, uuidv4 } from "../utils/utils.js";
+
   export let params = {};
   export let id;
-  export let init;
+  let init;
   let monsterList = monsters["monsters"];
   let currentMonster;
   if (id) {
-     currentMonster = monsterList.filter((x) => x["numberId"] == id)[0];
+    currentMonster = monsterList.filter((x) => x["numberId"] == id)[0];
   } else {
-     currentMonster = monsterList.filter(
-      (x) => x["numberId"] == params.id
-    )[0]
+    currentMonster = monsterList.filter((x) => x["numberId"] == params.id)[0];
   }
   let data = currentMonster;
 
@@ -77,6 +82,7 @@
   function isPresent(key) {
     return data[key] !== "" && Object.hasOwn(data, key);
   }
+document.documentElement.scrollTop = 0;
 </script>
 
 <svelte:head>
@@ -89,7 +95,19 @@
     <hr class="orange-border" />
     <div class="section-left">
       <div class="creature-heading">
-        <h1>{data.name}</h1>
+        <div style="display:flex; justify-content:space-between;">
+          <h1>{data.name}</h1>
+          <h2 style="margin-top:1.5em;">
+            <a
+              on:click={() => {
+                data["init"] = randomNumber(1, 20);
+                data["uid"] = uuidv4();
+                addParticipant($participantStore, data);
+                toast.push(`${data.name} added with initiative of ${data["init"]}`)
+              }}>Add to encounter</a
+            >
+          </h2>
+        </div>
         <h2 style="color:black;">{data.size}, {data.alignment}</h2>
       </div>
       <!-- creature heading -->

@@ -8,9 +8,6 @@
   participants = participants.sort((a, b) => b.init - a.init);
   let current = 0;
   let max = participants.length - 1;
-  //TODO create modifyParticipants function
-  // to pass to children. It shouldnt have to affect the store
-  // find index of current participant splice out old val, splice in new
 
   function modifyParticipant(newParticipant) {
     for (let i = 0; i < participants.length; i++) {
@@ -21,7 +18,6 @@
     participants = [...participants]
     setParticipants(participants);
   }
-  console.log($participantStore)
 </script>
 
 {#each $participantStore as participant, i}

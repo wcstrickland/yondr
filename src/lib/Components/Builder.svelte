@@ -142,7 +142,7 @@
 </script>
 
 <svelte:head>
-  <title>Yndr</title>
+  <title>Yndr: Encounter Builder</title>
   <meta name="description" content="Yndr" />
 </svelte:head>
 
@@ -150,7 +150,7 @@
   style="text-align:start;display:flex;flex-direction:column;position:sticky; top:0px; background-color:#242424;"
 >
   <div class="frm-chnk" style="justify-content: center;">
-    <div style="margin-bottom:1em;">
+    <div style="">
       <button
         on:click={(e) => {
           e.preventDefault();
@@ -160,8 +160,21 @@
     </div>
   </div>
 
+  <div class="frm-chnk" style="justify-content: center;">
+    <div style="margin-bottom:1em;">
+      <button
+        on:click={(e) => {
+          e.preventDefault();
+          clearParticipants();
+          toast.push("Encounter Cleared", { duration: 1000 });
+        }}>Clear Encounter</button
+      >
+    </div>
+  </div>
+
   <div class="frm-chnk">
     <select class="frm-sec" bind:value={currentMonsterName}>
+      <option value="" disabled selected>Select Monster</option>
       {#each monster_list as monster}
         <option>
           {monster["name"]}
@@ -203,15 +216,15 @@
   </div>
 
   <div class="frm-chnk" style="margin-top:.5em;">
-    <label class="frm-sec" for="initiative">Initiative</label>
+  <a
+    class="frm-sec linky"
+    on:click={(e) => {
+      e.preventDefault();
+      init = randomNumber(1, 20).toString();
+    }}>Initiative</a
+  >
     <input bind:value={init} type="text" />
   </div>
-    <button style="margin-bottom: 1em;"
-      on:click={(e) => {
-        e.preventDefault();
-        init = randomNumber(1, 20).toString();
-      }}>Roll</button
-    >
 
   <div class="frm-chnk" style="margin: 0 0;">
     <button
@@ -246,5 +259,10 @@
   }
   .frm-sec {
     flex: 1;
+    min-width: 120px;
+  }
+
+  .linky{
+    cursor:pointer;
   }
 </style>
