@@ -58,14 +58,28 @@
 <style>
   #pre {
     position: sticky;
-    bottom: 50%;
-    right: 80%;
+    bottom:50%;
+    right: 75%;
   }
 
   #nxt {
     position: sticky;
     bottom: 50%;
-    left: 90%;
+    left: 75%;
+  }
+
+  @media screen and (max-width: 575px) {
+    #pre {
+    position: sticky;
+    bottom: 10%;
+    right: 75%;
+  }
+
+  #nxt {
+    position: sticky;
+    bottom: 10%;
+    left: 75%;
+  }
   }
   .arrow {
     margin: 25px;
