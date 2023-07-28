@@ -103,7 +103,7 @@ document.documentElement.scrollTop = 0;
                 data["init"] = randomNumber(1, 20);
                 data["uid"] = uuidv4();
                 addParticipant($participantStore, data);
-                toast.push(`${data.name} added with initiative of ${data["init"]}`)
+                toast.push(`${data.name} added with initiative of ${data["init"]}`, {duration: 1000})
               }}>Add to encounter</a
             >
           </h2>

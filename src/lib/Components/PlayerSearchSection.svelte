@@ -1,7 +1,7 @@
 <script>
   import { toast } from "@zerodevx/svelte-toast";
   import { randomNumber, uuidv4 } from "../utils/utils.js";
-  export let updateParticipants;
+  import { participantStore, addParticipant } from "../utils/stores.js";
   $: player = {
     name: name,
     ac: ac,
@@ -33,13 +33,13 @@
     </div>
 
     <div class="start">
-  <a
-    class="frm-sec linky"
-    on:click={(e) => {
-      e.preventDefault();
-      init = randomNumber(1, 20).toString();
-    }}>Initiative</a
-  >
+      <a
+        class="frm-sec linky"
+        on:click={(e) => {
+          e.preventDefault();
+          init = randomNumber(1, 20).toString();
+        }}>Initiative</a
+      >
       <input
         bind:value={init}
         type="text"
@@ -49,25 +49,24 @@
       />
     </div>
 
-    <div class="start">
-    </div>
-      <button
-        style="margin:.5em 0"
-        on:click={(e) => {
-          e.preventDefault();
-          if (init !== "" && name !== "") {
-            player["uid"] = uuidv4()
-            updateParticipants(player);
-            toast.push(`${player.name} added with initiative of ${init}`);
-            init = "";
-            name = "";
-            ac = "";
-            hp = "";
-          } else {
-            toast.push(`Input player name and initiative`);
-          }
-        }}>Add to Combat</button
-      >
+    <div class="start" />
+    <button
+      style="margin:.5em 0"
+      on:click={(e) => {
+        e.preventDefault();
+        if (init !== "" && name !== "") {
+          player["uid"] = uuidv4();
+          addParticipant($participantStore, player);
+          toast.push(`${player.name} added with initiative of ${init}`);
+          init = "";
+          name = "";
+          ac = "";
+          hp = "";
+        } else {
+          toast.push(`Input player name and initiative`);
+        }
+      }}>Add to Combat</button
+    >
   </div>
 </div>
 

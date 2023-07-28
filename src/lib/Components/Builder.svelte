@@ -243,7 +243,7 @@
       }}>Add to Combat</button
     >
   </div>
-  <PlayerSearchSection {updateParticipants} />
+  <PlayerSearchSection  />
 </form>
 
 <div style="margin-top:3em;">
