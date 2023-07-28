@@ -1,7 +1,5 @@
-
 <script>
   import { toast } from "@zerodevx/svelte-toast";
-  import monsters from "../json/monsters.json";
   import {
     generateRollText,
     splitAroundRoll,
@@ -9,19 +7,8 @@
     extractRoll,
   } from "../utils/utils.js";
 
-  export let params = {};
-  export let id;
-  export let init;
-  let monsterList = monsters["monsters"];
-  let currentMonster;
-  if (id) {
-     currentMonster = monsterList.filter((x) => x["numberId"] == id)[0];
-  } else {
-     currentMonster = monsterList.filter(
-      (x) => x["numberId"] == params.id
-    )[0]
-  }
-  let data = currentMonster;
+  export let modifyParticipant;
+  export let data;
 
   let modifiers = {
     "1": "-5",
@@ -56,8 +43,8 @@
     "30": "+10",
   };
 
-
-  let currentHp = parseInt(data.hp.slice(0, data.hp.indexOf("(")));
+  let currentHp =
+    data.currentHp || parseInt(data.hp.slice(0, data.hp.indexOf("(")));
 
   let traits = Array.isArray(data.trait) ? data.trait : [data.trait];
 
@@ -84,13 +71,13 @@
   <meta name="description" content="Yndr" />
 </svelte:head>
 
-<div class="post" style="">
+<div class="post">
   <div class="stat-block">
     <hr class="orange-border" />
     <div class="section-left">
       <div class="creature-heading">
         <h1>{data.name}</h1>
-        <div style="color:black;">Initiative: {init}</div>
+        <div style="color:black;">Initiative: {data.init}</div>
         <h2 style="color:black;">{data.size}, {data.alignment}</h2>
       </div>
       <!-- creature heading -->
@@ -106,6 +93,10 @@
               style="background-color: white; color:black;height:20px; width:80px; margin-right:30px;"
               type="text"
               bind:value={currentHp}
+              on:input={() => {
+                data.currentHp = currentHp;
+                modifyParticipant(data);
+              }}
             />
             <label
               style="display:flex;color:black;flex-direction:column;flex:1;"
@@ -117,6 +108,10 @@
                 min="0"
                 max={parseInt(data.hp.slice(0, data.hp.indexOf("(")))}
                 bind:value={currentHp}
+                on:change={() => {
+                  data.currentHp = currentHp;
+                  modifyParticipant(data);
+                }}
                 id="range"
                 name="range"
               />

@@ -109,6 +109,12 @@
       push("/combat")
     }}>Start Combat</button>
   </div> -->
+  <div style="margin-bottom:1em;">
+    <button on:click={(e)=>{
+      e.preventDefault()
+      push('/builder')
+    }}>Encounter Builder</button>
+  </div>
   <div>
     <label for="cr">Minimum Challenge</label>
     <select bind:value={challenge} name="cr" id="cr">

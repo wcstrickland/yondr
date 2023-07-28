@@ -1,6 +1,7 @@
 <script>
   export let player;
-  let currentHp = player.hp;
+  export let modifyParticipant;
+  let currentHp = player["currentHp"] || player.hp;
   let maxHp = player.hp;
 </script>
 
@@ -8,11 +9,20 @@
   <h1>{player.name}</h1>
 
   <div style="display: flex; justify-content:center; align-items:center;">
-  <h1 style="margin-right:30px;">
-    HP : 
-  </h1>
-    <h2 style="color:darkgray;" contenteditable="true"> {currentHp} </h2>
-    <h2>/ {maxHp}</h2>
+    <h3 style="margin-right:30px;">HP :</h3>
+    <input
+      on:input={() => {
+        player["currentHp"] = currentHp;
+        modifyParticipant(player);
+      }}
+      on:change={() => {
+        player["currentHp"] = currentHp;
+        modifyParticipant(player);
+      }}
+      type="text"
+      bind:value={currentHp}
+    />
+    <h3>/ {maxHp}</h3>
   </div>
 
   <h1>AC: {player.ac}</h1>

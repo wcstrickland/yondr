@@ -5,10 +5,13 @@
   import MonsterSearch from './lib/Components/MonsterSearch.svelte';
   import Monster from './lib/Components/Monster.svelte';
   import Combat from './lib/Components/Combat.svelte';
+  import Builder from './lib/Components/Builder.svelte';
+  import Encounter from './lib/Components/Encounter.svelte';
 const routes = {
   '/' : MonsterSearch,
   '/monster/:id' :Monster,
-  '/combat' : Combat
+  '/combat' : Encounter,
+  '/builder' : Builder
 }
 </script>
 
