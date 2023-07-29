@@ -7,6 +7,7 @@
   import {
     participantStore,
     setParticipants,
+    addParticipant,
     clearParticipants,
   } from "../utils/stores.js";
   import { randomNumber, uuidv4 } from "../utils/utils.js";
@@ -147,7 +148,7 @@
 </svelte:head>
 
 <form
-  style="text-align:start;display:flex;flex-direction:column;position:sticky; top:0px; background-color:#242424;"
+  style="text-align:start;display:flex;flex-direction:column; top:0px; background-color:#242424;"
 >
   <div class="frm-chnk" style="justify-content: center;">
     <div style="">
@@ -232,10 +233,11 @@
       on:click={(e) => {
         e.preventDefault();
         if (init !== "") {
-          currentMonster["init"] = init;
-          currentMonster["uid"] = uuidv4();
-          updateParticipants(currentMonster);
-          toast.push(`${currentMonster.name} added with initiative of ${init}`);
+          let copyMonster = {...currentMonster};
+          copyMonster["init"] = init;
+          copyMonster["uid"] = uuidv4();
+          addParticipant($participantStore, copyMonster);
+          toast.push(`${copyMonster.name} added with initiative of ${init}`);
           init = "";
         } else {
           toast.push(`Input initiative for ${currentMonster["name"]}`);

@@ -8,6 +8,7 @@
   participants = participants.sort((a, b) => b.init - a.init);
   let current = 0;
   let max = participants.length - 1;
+  let cssClass = "mid"
 
   function modifyParticipant(newParticipant) {
     for (let i = 0; i < participants.length; i++) {
@@ -15,25 +16,31 @@
         participants.splice(i, 1, newParticipant);
       }
     }
-    participants = [...participants]
+    participants = [...participants];
     setParticipants(participants);
   }
 </script>
 
-{#each $participantStore as participant, i}
-  {#if i === current}
-    {#if participant.numberId}
-      <MonsterCombatant data={participant} {modifyParticipant} />
-    {:else}
-      <PlayerCard player={participant} {modifyParticipant} />
+<div class={cssClass}>
+  {#each $participantStore as participant, i}
+    {#if i === current}
+      {#if participant.numberId}
+        <MonsterCombatant data={participant} {modifyParticipant} />
+      {:else}
+        <PlayerCard player={participant} {modifyParticipant} />
+      {/if}
     {/if}
-  {/if}
-{/each}
+  {/each}
+</div>
 
 <span
   class="arrow is-left"
   id="pre"
   on:click={() => {
+    cssClass = cssClass === "mid" ? "right" : "mid"
+    setTimeout(()=>{
+      cssClass = cssClass === "mid" ? "right" : "mid"
+    },150)
     if (current === 0) {
       current = max;
     } else {
@@ -46,9 +53,14 @@
   class="arrow is-right"
   id="nxt"
   on:click={() => {
+    console.log("ha");
+    cssClass = cssClass === "mid" ? "left" : "mid"
+    setTimeout(()=>{
+      cssClass = cssClass === "mid" ? "left" : "mid"
+    },150)
     if (current === max) {
       current = 0;
-      toast.push("Starting Next Round!", {duration : 1000})
+      toast.push("Starting Next Round!", { duration: 1000 });
     } else {
       current += 1;
     }
@@ -56,30 +68,45 @@
 />
 
 <style>
+  .mid{
+    translate: 5px ;
+    transition:all 150ms ease-in-out
+  }
+  .left{
+    translate: -5px ;
+    transition:all 150ms ease-in-out
+  }
+  .right{
+    translate: 10px ;
+    transition:all 150ms ease-in-out
+  }
   #pre {
     position: sticky;
-    bottom:50%;
+    bottom: 50%;
     right: 75%;
+    cursor: pointer;
   }
 
   #nxt {
     position: sticky;
     bottom: 50%;
     left: 75%;
+    cursor: pointer;
+    transition: left 150ms ease-in-out;
   }
 
   @media screen and (max-width: 575px) {
     #pre {
-    position: sticky;
-    bottom: 10%;
-    right: 75%;
-  }
+      position: sticky;
+      bottom: 10%;
+      right: 75%;
+    }
 
-  #nxt {
-    position: sticky;
-    bottom: 10%;
-    left: 75%;
-  }
+    #nxt {
+      position: sticky;
+      bottom: 10%;
+      left: 75%;
+    }
   }
   .arrow {
     margin: 25px;
@@ -114,7 +141,7 @@
     transform: rotate(135deg);
   }
   .arrow::after {
-    border-color: rgb(0, 26, 255);
+    border-color: rgb(44, 123, 196);
   }
   .arrow::before {
     background-color: rgb(178, 243, 0);
