@@ -64,6 +64,7 @@
   function isPresent(key) {
     return data[key] !== "" && Object.hasOwn(data, key);
   }
+document.documentElement.scrollTop = 0;
 </script>
 
 <svelte:head>
