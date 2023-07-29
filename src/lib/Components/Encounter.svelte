@@ -69,7 +69,7 @@
 
 <style>
   .mid{
-    translate: 5px ;
+    translate: 0px ;
     transition:all 150ms ease-in-out
   }
   .left{
@@ -77,20 +77,20 @@
     transition:all 150ms ease-in-out
   }
   .right{
-    translate: 10px ;
+    translate: 5px ;
     transition:all 150ms ease-in-out
   }
   #pre {
     position: sticky;
     bottom: 50%;
-    right: 75%;
+    right: 65%;
     cursor: pointer;
   }
 
   #nxt {
     position: sticky;
     bottom: 50%;
-    left: 75%;
+    left: 65%;
     cursor: pointer;
     transition: left 150ms ease-in-out;
   }
