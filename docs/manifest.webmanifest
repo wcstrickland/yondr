@@ -9,7 +9,7 @@
   "scope": "https://wcstrickland.github.io/yondr/",
   "icons": [
     {
-      "src": "dyce-fa25f047.png",
+      "src": "docs/assets/dyce-fa25f047.png",
       "sizes": "any",
       "type": "image/svg+xml",
       "purpose": "any maskable"
