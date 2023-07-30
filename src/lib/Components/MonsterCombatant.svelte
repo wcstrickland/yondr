@@ -634,7 +634,6 @@ document.documentElement.scrollTop = 0;
   }
   @media screen and (max-width: 575px) {
     .stat-block {
-      margin: 5px;
       width: 100%;
     }
   }
