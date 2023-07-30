@@ -3,7 +3,7 @@
   import MonsterSearchSection from "./MonsterSearchSection.svelte";
   import { push } from "svelte-spa-router";
   import { searchCriteria, updateSearchCriteria } from "../utils/stores.js";
-  import { toast } from "@zerodevx/svelte-toast";
+  import DiceButton from "./DiceButton.svelte";
   const types = [
     "all",
     "aberration",
@@ -120,7 +120,7 @@
   <div>
     <label for="cr">Minimum Challenge</label>
     <select bind:value={$searchCriteria.lowerChallenge} name="cr" id="cr">
-      {#each crs.filter((x) => parseInt(x) <= parseInt(upperChallenge)) as cr}
+      {#each crs.filter((x) => parseInt(x) <= parseInt($searchCriteria.upperChallenge)) as cr}
         <option>{cr}</option>
       {/each}
     </select>
@@ -133,7 +133,7 @@
       name="uppercr"
       id="uppercr"
     >
-      {#each crs.filter((x) => parseInt(x) >= parseInt(challenge)) as cr}
+      {#each crs.filter((x) => parseInt(x) >= parseInt($searchCriteria.lowerChallenge)) as cr}
         <option>{cr}</option>
       {/each}
     </select>
@@ -169,6 +169,7 @@
     {/if}
   </div>
 </form>
+
 {#each monster_list as monster, i}
   {#if i < 1000}
     <MonsterSearchSection {monster} {updateParticipants} />
