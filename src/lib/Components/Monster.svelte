@@ -16,15 +16,8 @@
   import { randomNumber, uuidv4 } from "../utils/utils.js";
 
   export let params = {};
-  export let id;
-  let init;
   let monsterList = monsters["monsters"];
-  let currentMonster;
-  if (id) {
-    currentMonster = monsterList.filter((x) => x["numberId"] == id)[0];
-  } else {
-    currentMonster = monsterList.filter((x) => x["numberId"] == params.id)[0];
-  }
+  let currentMonster = monsterList.filter((x) => x["numberId"] == params.id)[0];
   let data = currentMonster;
 
   let modifiers = {
@@ -82,7 +75,7 @@
   function isPresent(key) {
     return data[key] !== "" && Object.hasOwn(data, key);
   }
-document.documentElement.scrollTop = 0;
+  document.documentElement.scrollTop = 0;
 </script>
 
 <svelte:head>
@@ -103,7 +96,10 @@ document.documentElement.scrollTop = 0;
                 data["init"] = randomNumber(1, 20);
                 data["uid"] = uuidv4();
                 addParticipant($participantStore, data);
-                toast.push(`${data.name} added with initiative of ${data["init"]}`, {duration: 1000})
+                toast.push(
+                  `${data.name} added with initiative of ${data["init"]}`,
+                  { duration: 1000 }
+                );
               }}>Add to encounter</a
             >
           </h2>
@@ -546,7 +542,7 @@ document.documentElement.scrollTop = 0;
     padding: 5px 10px 20px;
     box-shadow: 0 0 1.5em #867453;
     margin-top: 20px;
-    margin-bottom: 20px;
+    margin-bottom: 10px;
     margin-right: auto;
     margin-left: auto;
   }
@@ -667,7 +663,7 @@ document.documentElement.scrollTop = 0;
   }
   @media screen and (max-width: 575px) {
     .stat-block {
-      margin: 5px;
+      /* margin: 5px; */
       width: 100%;
     }
   }

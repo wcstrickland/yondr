@@ -5,6 +5,11 @@ import { writable } from 'svelte/store';
 // create a store that initializes to reflect a section of localstorage or empty object
 // export const participantStore = writable([])
 export const participantStore = writable(JSON.parse(localStorage.getItem('participants'))||[])
+export const searchCriteria = writable(JSON.parse(localStorage.getItem('serarchCriteria'))||{
+    "type": "all",
+    "lowerChallenge": "0",
+    "upperChallenge": "30"
+})
 
 export function clearParticipants(){
     participantStore.set([])
@@ -19,4 +24,16 @@ export function setParticipants(arr){
 export function addParticipant(existingStore, participant){
     participantStore.set([...existingStore, participant])
     localStorage.setItem("participants", JSON.stringify([...existingStore, participant]))
+}
+
+export function removeParticipant(existingStore, participant){
+    let newStore = existingStore.filter(x => x.uid !== participant.uid)
+    setParticipants(newStore)
+}
+
+export function updateSearchCriteria(key, val){
+    searchCriteria.update(sc => {
+        sc[key] = val
+        return sc
+    })
 }

@@ -1,10 +1,9 @@
 <script>
   import all_monsters from "../json/monsters.json";
   import MonsterSearchSection from "./MonsterSearchSection.svelte";
-  import PlayerSearchSection from "./PlayerSearchSection.svelte";
   import { push } from "svelte-spa-router";
-  import {participantStore, setParticipants, clearParticipants} from "../utils/stores.js"
-  import { SvelteToast } from "@zerodevx/svelte-toast";
+  import { searchCriteria, updateSearchCriteria } from "../utils/stores.js";
+  import { toast } from "@zerodevx/svelte-toast";
   const types = [
     "all",
     "aberration",
@@ -74,14 +73,21 @@
   let type = "all";
   let searchString = "";
 
+  // 2 way bind search criteria and and localstorage
+  searchCriteria.subscribe(
+    (value) => (localStorage.searchCriteria = JSON.stringify(value))
+  );
+
   $: monster_list = (() => {
     let outPut = all_monsters["monsters"];
-    outPut = outPut.filter((x) => parseInt(x["cr"]) >= parseInt(challenge));
     outPut = outPut.filter(
-      (x) => parseInt(x["cr"]) <= parseInt(upperChallenge)
+      (x) => parseInt(x["cr"]) >= parseInt($searchCriteria.lowerChallenge)
     );
-    if (type !== "all") {
-      outPut = outPut.filter((x) => x["type"] === type);
+    outPut = outPut.filter(
+      (x) => parseInt(x["cr"]) <= parseInt($searchCriteria.upperChallenge)
+    );
+    if ($searchCriteria.type !== "all") {
+      outPut = outPut.filter((x) => x["type"] === $searchCriteria.type);
     }
     if (searchString !== "") {
       let firstChar = searchString[0];
@@ -92,6 +98,7 @@
     }
     return outPut;
   })();
+
 </script>
 
 <svelte:head>
@@ -103,14 +110,16 @@
   style="display:flex;flex-direction:column;position:sticky; top:0px; background-color:#242424;"
 >
   <div style="margin-bottom:1em;">
-    <button on:click={(e)=>{
-      e.preventDefault()
-      push('/builder')
-    }}>Encounter Builder</button>
+    <button
+      on:click={(e) => {
+        e.preventDefault();
+        push("/builder");
+      }}>Encounter Builder</button
+    >
   </div>
   <div>
     <label for="cr">Minimum Challenge</label>
-    <select bind:value={challenge} name="cr" id="cr">
+    <select bind:value={$searchCriteria.lowerChallenge} name="cr" id="cr">
       {#each crs.filter((x) => parseInt(x) <= parseInt(upperChallenge)) as cr}
         <option>{cr}</option>
       {/each}
@@ -119,7 +128,11 @@
 
   <div>
     <label style="" for="uppercr">Maximum Challenge</label>
-    <select bind:value={upperChallenge} name="uppercr" id="uppercr">
+    <select
+      bind:value={$searchCriteria.upperChallenge}
+      name="uppercr"
+      id="uppercr"
+    >
       {#each crs.filter((x) => parseInt(x) >= parseInt(challenge)) as cr}
         <option>{cr}</option>
       {/each}
@@ -128,7 +141,7 @@
 
   <div>
     <label for="type">Type</label>
-    <select bind:value={type} name="type" id="type">
+    <select bind:value={$searchCriteria.type} name="type" id="type">
       {#each types as type}
         <option>{type}</option>
       {/each}
@@ -148,10 +161,18 @@
       }}>Back to Top</button
     >
   </div>
+  <div style="margin-bottom:.5em;">
+    {#if monster_list.length > 1000}
+      Showing first 1000 results
+      {:else}
+      Showing {monster_list.length} results
+    {/if}
+  </div>
 </form>
-
-{#each monster_list as monster}
-  <MonsterSearchSection {monster} {updateParticipants} />
+{#each monster_list as monster, i}
+  {#if i < 1000}
+    <MonsterSearchSection {monster} {updateParticipants} />
+  {/if}
 {/each}
 
 <style></style>

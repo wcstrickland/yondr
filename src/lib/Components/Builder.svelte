@@ -8,6 +8,7 @@
     participantStore,
     setParticipants,
     addParticipant,
+    removeParticipant,
     clearParticipants,
   } from "../utils/stores.js";
   import { randomNumber, uuidv4 } from "../utils/utils.js";
@@ -217,13 +218,13 @@
   </div>
 
   <div class="frm-chnk" style="margin-top:.5em;">
-  <a
-    class="frm-sec linky"
-    on:click={(e) => {
-      e.preventDefault();
-      init = randomNumber(1, 20).toString();
-    }}>Initiative</a
-  >
+    <a
+      class="frm-sec linky"
+      on:click={(e) => {
+        e.preventDefault();
+        init = randomNumber(1, 20).toString();
+      }}>Initiative</a
+    >
     <input bind:value={init} type="text" />
   </div>
 
@@ -233,7 +234,7 @@
       on:click={(e) => {
         e.preventDefault();
         if (init !== "") {
-          let copyMonster = {...currentMonster};
+          let copyMonster = { ...currentMonster };
           copyMonster["init"] = init;
           copyMonster["uid"] = uuidv4();
           addParticipant($participantStore, copyMonster);
@@ -245,12 +246,17 @@
       }}>Add to Combat</button
     >
   </div>
-  <PlayerSearchSection  />
+  <PlayerSearchSection />
 </form>
 
 <div style="margin-top:3em;">
   {#each $participantStore as participant}
-    <div>{participant.name} - initiative: {participant.init}</div>
+    <div style="display: flex; justify-content:space-between;">
+      <div>{participant.name} - initiative: {participant.init}</div>
+      <a on:click={()=>{
+        removeParticipant($participantStore, participant)
+      }}>X</a>
+    </div>
   {/each}
 </div>
 
@@ -264,7 +270,7 @@
     min-width: 120px;
   }
 
-  .linky{
-    cursor:pointer;
+  .linky {
+    cursor: pointer;
   }
 </style>
