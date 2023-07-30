@@ -15,8 +15,14 @@
       "purpose": "any maskable"
     },
     {
-      "src": "diceSvg.svg",
+      "src": "dyce.png",
       "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "maskable"
+    },
+    {
+      "src": "diceSvg.svg",
+      "sizes": "any",
       "type": "image/svg+xml",
       "purpose": "maskable"
     }
