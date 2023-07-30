@@ -5,10 +5,11 @@
   "display": "standalone",
   "background_color": "#ffffff",
   "lang": "en",
+  "theme_color": "#242424",
   "scope": "https://wcstrickland.github.io/yondr/",
   "icons": [
     {
-      "src": "d20.png",
+      "src": "dyce-fa25f047.png",
       "sizes": "any",
       "type": "image/svg+xml",
       "purpose": "any maskable"
