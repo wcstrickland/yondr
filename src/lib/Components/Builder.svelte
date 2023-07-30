@@ -252,7 +252,7 @@
 <div style="margin-top:3em;">
   {#each $participantStore as participant}
     <div style="display: flex; justify-content:start;">
-      <a on:click={()=>{
+      <a style="margin-right:1em; cursor:pointer;" on:click={()=>{
         removeParticipant($participantStore, participant)
       }}>X</a>
       <div>{participant.name} - initiative: {participant.init}</div>
