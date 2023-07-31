@@ -15,10 +15,10 @@
       "purpose": "any maskable"
     },
     {
-      "src": "diceSvg.svg",
+      "src": "invertSvg.svg",
       "sizes": "512x512",
       "type": "image/svg+xml",
-      "purpose": "any maskable"
+      "purpose": " maskable"
     }
   ]
 }
