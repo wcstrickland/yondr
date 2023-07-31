@@ -300,6 +300,7 @@
         description: description,
         action: actions,
         uid: uuidv4(),
+        numberId: uuidv4()
       };
       addCustomMonster($customMonsters, newMonster);
     }}>Create</button
