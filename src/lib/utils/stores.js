@@ -10,6 +10,7 @@ export const searchCriteria = writable(JSON.parse(localStorage.getItem('serarchC
     "lowerChallenge": "0",
     "upperChallenge": "30"
 })
+export const customMonsters = writable(JSON.parse(localStorage.getItem('customMonsters')) || [])
 
 export function clearParticipants(){
     participantStore.set([])
@@ -36,4 +37,24 @@ export function updateSearchCriteria(key, val){
         sc[key] = val
         return sc
     })
+}
+
+export function clearCustomMonsters(){
+    customMonsters.set([])
+    localStorage.setItem("customMonsters", JSON.stringify([]))
+}
+
+export function setCustomMonsters(arr){
+    customMonsters.set([...arr])
+    localStorage.setItem("customMonsters", JSON.stringify([...arr]))
+}
+
+export function addCustomMonster(existingStore, participant){
+    customMonsters.set([...existingStore, participant])
+    localStorage.setItem("customMonsters", JSON.stringify([...existingStore, participant]))
+}
+
+export function removeCustomMonster(existingStore, customMonster){
+    let newStore = existingStore.filter(x => x.uid !== customMonster.uid)
+    setCustomMonsters(newStore)
 }

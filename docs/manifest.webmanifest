@@ -3,7 +3,7 @@
   "short_name": "yondr",
   "start_url": "https://wcstrickland.github.io/yondr/",
   "display": "standalone",
-  "background_color": "#ffffff",
+  "background_color": "#242424",
   "lang": "en",
   "theme_color": "#242424",
   "scope": "https://wcstrickland.github.io/yondr/",
@@ -16,6 +16,12 @@
     },
     {
       "src": "diceSvg.svg",
+      "sizes": "512x512",
+      "type": "image/svg+xml",
+      "purpose": "any maskable"
+    },
+    {
+      "src": "invertSvg.svg",
       "sizes": "512x512",
       "type": "image/svg+xml",
       "purpose": "any maskable"

@@ -2,7 +2,11 @@
   import all_monsters from "../json/monsters.json";
   import MonsterSearchSection from "./MonsterSearchSection.svelte";
   import { push } from "svelte-spa-router";
-  import { searchCriteria, updateSearchCriteria } from "../utils/stores.js";
+  import {
+    searchCriteria,
+    updateSearchCriteria,
+    customMonsters,
+  } from "../utils/stores.js";
   import DiceButton from "./DiceButton.svelte";
   const types = [
     "all",
@@ -24,6 +28,7 @@
     "ooze",
     "plant",
     "undead",
+    "custom"
   ];
 
   const crs = [
@@ -98,7 +103,6 @@
     }
     return outPut;
   })();
-
 </script>
 
 <svelte:head>
@@ -164,8 +168,16 @@
   <div style="margin-bottom:.5em;">
     {#if monster_list.length > 1000}
       Showing first 1000 results
-      {:else}
+    {:else}
       Showing {monster_list.length} results
+    {/if}
+  </div>
+  <div style="margin-bottom:.5em;">
+    {#if $searchCriteria.type === "custom"}
+      <button on:click={(e)=>{
+        e.preventDefault()
+        push('#/createmonster')
+      }}>Build a Monster</button>
     {/if}
   </div>
 </form>
@@ -175,5 +187,11 @@
     <MonsterSearchSection {monster} {updateParticipants} />
   {/if}
 {/each}
+
+{#if $searchCriteria.type === "custom"}
+  {#each $customMonsters as customMonster}
+  <MonsterSearchSection monster={customMonster} {updateParticipants}/>
+  {/each}
+{/if}
 
 <style></style>

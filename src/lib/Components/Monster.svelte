@@ -12,12 +12,18 @@
     participantStore,
     addParticipant,
     setParticipants,
+    customMonsters
   } from "../utils/stores.js";
   import { randomNumber, uuidv4 } from "../utils/utils.js";
 
   export let params = {};
   let monsterList = monsters["monsters"];
-  let currentMonster = monsterList.filter((x) => x["numberId"] == params.id)[0];
+  let currentMonster;
+  if(params.id.length > 5){
+    currentMonster = $customMonsters.filter(x => x.uid === params.id)[0]
+  }else{
+    currentMonster = monsterList.filter((x) => x["numberId"] == params.id)[0];
+  }
   let data = currentMonster;
 
   let modifiers = {
@@ -55,7 +61,15 @@
 
   let showDescription = false;
 
-  let currentHp = parseInt(data.hp.slice(0, data.hp.indexOf("(")));
+  let currentHp;
+  let maxHp;
+  if(data.type === "custom"){
+   currentHp = parseInt(data.hp);
+   maxHp = parseInt(data.hp);
+  }else{
+   currentHp = parseInt(data.hp.slice(0, data.hp.indexOf("(")));
+   maxHp = parseInt(data.hp.slice(0, data.hp.indexOf("(")));
+  }
 
   let traits = Array.isArray(data.trait) ? data.trait : [data.trait];
 
@@ -128,7 +142,7 @@
                 style="flex:1;display:flex;flex-direction:column;"
                 type="range"
                 min="0"
-                max={parseInt(data.hp.slice(0, data.hp.indexOf("(")))}
+                max={maxHp}
                 bind:value={currentHp}
                 id="range"
                 name="range"
