@@ -10,15 +10,15 @@
   "icons": [
     {
       "src": "dyce.png",
-      "sizes": "any",
+      "sizes": "512x512",
       "type": "image/png",
       "purpose": "any maskable"
     },
     {
-      "src": "invertSvg.svg",
+      "src": "diceSvg.svg",
       "sizes": "512x512",
       "type": "image/svg+xml",
-      "purpose": " maskable"
+      "purpose": "any maskable"
     }
   ]
 }
