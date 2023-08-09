@@ -7,12 +7,16 @@
   import Encounter from './lib/Components/Encounter.svelte';
   import ToggleButton from './lib/Components/ToggleButton.svelte';
   import CustomMonsterBuilder from './lib/Components/CustomMonsterBuilder.svelte';
+  import SpellSearch from './lib/Components/SpellSearch.svelte';
+  import Spell from './lib/Components/Spell.svelte';
 const routes = {
   '/' : MonsterSearch,
   '/monster/:id' :Monster,
   '/combat' : Encounter,
   '/builder' : Builder,
-  "/createmonster": CustomMonsterBuilder
+  "/createmonster": CustomMonsterBuilder,
+  "/spells": SpellSearch,
+  "/spell/:id": Spell
 }
 </script>
 

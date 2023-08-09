@@ -3,14 +3,14 @@
   "short_name": "yondr",
   "start_url": "https://wcstrickland.github.io/yondr/",
   "display": "standalone",
-  "background_color": "#242424",
+  "background_color": "#ffffff",
   "lang": "en",
   "theme_color": "#242424",
   "scope": "https://wcstrickland.github.io/yondr/",
   "icons": [
     {
       "src": "dyce.png",
-      "sizes": "512x512",
+      "sizes": "any",
       "type": "image/png",
       "purpose": "any maskable"
     },

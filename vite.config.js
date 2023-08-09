@@ -16,3 +16,8 @@ export default defineConfig({
     outDir: './docs'
   }
 })
+
+// export default defineConfig({
+//   plugins: [svelte()]
+//   },
+// )

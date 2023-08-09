@@ -120,6 +120,12 @@
         push("/builder");
       }}>Encounter Builder</button
     >
+    <button
+      on:click={(e) => {
+        e.preventDefault();
+        push("/spells");
+      }}>Spells</button
+    >
   </div>
   <div>
     <label for="cr">Minimum Challenge</label>
