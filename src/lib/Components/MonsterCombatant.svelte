@@ -49,7 +49,11 @@
    currentHp = parseInt(data.hp);
    maxHp = parseInt(data.hp);
   }else{
-   currentHp = parseInt(data.hp.slice(0, data.hp.indexOf("(")));
+    if(data.currentHp){
+      currentHp = data.currentHp
+    }else{
+      currentHp = parseInt(data.hp.slice(0, data.hp.indexOf("(")));
+    }
    maxHp = parseInt(data.hp.slice(0, data.hp.indexOf("(")));
   }
 
@@ -105,6 +109,10 @@ document.documentElement.scrollTop = 0;
                 data.currentHp = currentHp;
                 modifyParticipant(data);
               }}
+              on:change={() => {
+                data.currentHp = currentHp;
+                modifyParticipant(data);
+              }}
             />
             <label
               style="display:flex;color:black;flex-direction:column;flex:1;"
@@ -117,6 +125,10 @@ document.documentElement.scrollTop = 0;
                 max={maxHp}
                 bind:value={currentHp}
                 on:change={() => {
+                  data.currentHp = currentHp;
+                  modifyParticipant(data);
+                }}
+                on:input={() => {
                   data.currentHp = currentHp;
                   modifyParticipant(data);
                 }}
