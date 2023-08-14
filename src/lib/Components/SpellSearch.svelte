@@ -15,7 +15,7 @@
   ];
 
   const levels = [
-    "cantrip",
+    "0",
     "1",
     "2",
     "3",
@@ -28,7 +28,7 @@
   ];
 
 
-  let lowerLevel = "1";
+  let lowerLevel = "0";
   let upperLevel = "9";
   let spellClass = "all";
   let searchString = "";

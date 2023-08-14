@@ -15,10 +15,16 @@
       "purpose": "any maskable"
     },
     {
+      "src": "dyceInvert.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any"
+    },
+    {
       "src": "diceSvg.svg",
       "sizes": "512x512",
       "type": "image/svg+xml",
-      "purpose": "any maskable"
+      "purpose": "any"
     }
   ]
 }
