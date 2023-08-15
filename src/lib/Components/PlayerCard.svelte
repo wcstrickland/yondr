@@ -13,7 +13,7 @@
 <div id="player-card" style="">
   <h1>{player.name}</h1>
 
-  <div style="display: flex; justify-content:center; align-items:center;">
+  <div style="display: flex; justify-content:center; align-items:center;margin:auto auto;">
     <h3 style="margin-right:30px;">HP :</h3>
     <input
       on:input={() => {

@@ -10,6 +10,7 @@
   import SpellSearch from './lib/Components/SpellSearch.svelte';
   import Spell from './lib/Components/Spell.svelte';
   import Combat from './lib/Components/Combat.svelte';
+  import Combat1 from './lib/Components/Combat1.svelte';
 
 const routes = {
   '/' : MonsterSearch,
@@ -19,7 +20,7 @@ const routes = {
   "/spells": SpellSearch,
   "/spell/:id": Spell,
   "/encounter" : Encounter,
-  '/combat' : Combat,
+  '/combat' : Combat1,
 }
 </script>
 

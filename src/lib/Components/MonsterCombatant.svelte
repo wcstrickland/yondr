@@ -524,7 +524,7 @@ document.documentElement.scrollTop = 0;
     max-width: 100%;
     text-align: left;
     vertical-align: top;
-    width: 50%;
+    /* width: 50%; */
     min-width: 280px;
     background: var(--statblock-background-color);
     padding: 5px 3px 50px;
