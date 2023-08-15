@@ -9,7 +9,7 @@
   import MonsterCombatant from "./MonsterCombatant.svelte";
   import PlayerCard from "./PlayerCard.svelte";
   let participants = $participantStore;
-  participants = participants.sort((a, b) => b.init - a.init);
+  participants = participants.sort((a, b) => b.init - a.init).reverse();
 
   participantIndex.subscribe(
     (value) => (localStorage.participantIndex = value)
@@ -32,6 +32,7 @@
   }
 </script>
 
+<h3>Initiative: Lowest > Highest</h3>
 <div id="wrap">
   {#each $participantStore as participant, i}
     {#if i == $participantIndex}
