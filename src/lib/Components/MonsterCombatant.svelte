@@ -527,7 +527,7 @@ document.documentElement.scrollTop = 0;
     width: 50%;
     min-width: 280px;
     background: var(--statblock-background-color);
-    padding: 5px 3px 20px;
+    padding: 5px 3px 50px;
     box-shadow: 0 0 1.5em #867453;
     margin-top: 20px;
     margin-bottom: 20px;

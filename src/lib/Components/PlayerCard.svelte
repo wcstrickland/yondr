@@ -10,7 +10,7 @@
   let maxHp = player.hp;
 </script>
 
-<article>
+<div id="player-card" style="">
   <h1>{player.name}</h1>
 
   <div style="display: flex; justify-content:center; align-items:center;">
@@ -19,12 +19,12 @@
       on:input={() => {
         player["currentHp"] = currentHp;
         modifyParticipant(player);
-        currentHp = player["currentHp"]
+        currentHp = player["currentHp"];
       }}
       on:change={() => {
         player["currentHp"] = currentHp;
         modifyParticipant(player);
-        currentHp = player["currentHp"]
+        currentHp = player["currentHp"];
       }}
       type="text"
       bind:value={currentHp}
@@ -34,7 +34,7 @@
 
   <h1>AC: {player.ac}</h1>
   <h1>Initiative: {player.init}</h1>
-</article>
+</div>
 
 <style>
 </style>
