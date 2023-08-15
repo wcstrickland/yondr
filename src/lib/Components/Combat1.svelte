@@ -48,7 +48,6 @@
             0,
             currentCombatant.hp.indexOf("(") - 1
           );
-          console.log(currentCombatant.type);
         }}
       >
         <div class="card-section">
@@ -127,7 +126,6 @@
             0,
             currentCombatant.hp.indexOf("(") - 1
           );
-          console.log(currentCombatant.type);
         }}
       >
         <div class="card-section">
