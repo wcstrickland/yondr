@@ -1,5 +1,4 @@
 <script>
-  import Carousel from "svelte-carousel";
   import { participantStore, setParticipants } from "../utils/stores.js";
   import MonsterCombatant from "./MonsterCombatant.svelte";
   import PlayerCard from "./PlayerCard.svelte";

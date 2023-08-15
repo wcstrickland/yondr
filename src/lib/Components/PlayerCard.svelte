@@ -1,7 +1,12 @@
 <script>
   export let player;
   export let modifyParticipant;
-  let currentHp = player["currentHp"] || player.hp;
+  let currentHp;
+  if (player["currentHp"] === undefined) {
+    currentHp = player.hp;
+  } else {
+    currentHp = player["currentHp"];
+  }
   let maxHp = player.hp;
 </script>
 
@@ -14,10 +19,12 @@
       on:input={() => {
         player["currentHp"] = currentHp;
         modifyParticipant(player);
+        currentHp = player["currentHp"]
       }}
       on:change={() => {
         player["currentHp"] = currentHp;
         modifyParticipant(player);
+        currentHp = player["currentHp"]
       }}
       type="text"
       bind:value={currentHp}

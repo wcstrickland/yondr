@@ -9,14 +9,17 @@
   import CustomMonsterBuilder from './lib/Components/CustomMonsterBuilder.svelte';
   import SpellSearch from './lib/Components/SpellSearch.svelte';
   import Spell from './lib/Components/Spell.svelte';
+  import Combat from './lib/Components/Combat.svelte';
+
 const routes = {
   '/' : MonsterSearch,
   '/monster/:id' :Monster,
-  '/combat' : Encounter,
   '/builder' : Builder,
   "/createmonster": CustomMonsterBuilder,
   "/spells": SpellSearch,
-  "/spell/:id": Spell
+  "/spell/:id": Spell,
+  "/encounter" : Encounter,
+  '/combat' : Combat,
 }
 </script>
 

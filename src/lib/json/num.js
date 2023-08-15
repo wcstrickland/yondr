@@ -1,10 +1,14 @@
 
 import * as fs from "node:fs";
 
-let spells = JSON.parse(fs.readFileSync("./all_Spells.json").toString())
+let monsters = JSON.parse(fs.readFileSync("./monsters.json").toString())
 
-for(let i =0; i<spells["spells"].length;i++){
-    spells["spells"][i]["numberId"] = i.toString()
+for (let i = 0; i < monsters["monsters"].length; i++) {
+    if (monsters["monsters"][i].hp.includes("(")) {
+        monsters["monsters"][i]["currentHp"] = monsters["monsters"][i].hp.slice(0, monsters["monsters"][i].hp.indexOf("(") - 1)
+    }else{
+        monsters["monsters"][i]["currentHp"] = monsters["monsters"][i].hp
+    }
 }
 
-fs.writeFileSync("./spells.json", JSON.stringify(spells))
+fs.writeFileSync("./new_monsters.json", JSON.stringify(monsters))

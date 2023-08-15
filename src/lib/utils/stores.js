@@ -5,6 +5,7 @@ import { writable } from 'svelte/store';
 // create a store that initializes to reflect a section of localstorage or empty object
 // export const participantStore = writable([])
 export const participantStore = writable(JSON.parse(localStorage.getItem('participants'))||[])
+export const participantIndex = writable(parseInt(localStorage.getItem('participantIndex'))|| -1)
 export const searchCriteria = writable(JSON.parse(localStorage.getItem('serarchCriteria'))||{
     "type": "all",
     "lowerChallenge": "0",

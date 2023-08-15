@@ -43,19 +43,17 @@
     "30": "+10",
   };
 
-  let currentHp;
-  let maxHp;
+
+  export let currentHp;
+  export let maxHp;
   if(data.type === "custom"){
    currentHp = parseInt(data.hp);
    maxHp = parseInt(data.hp);
-  }else{
-    if(data.currentHp){
-      currentHp = data.currentHp
-    }else{
-      currentHp = parseInt(data.hp.slice(0, data.hp.indexOf("(")));
-    }
-   maxHp = parseInt(data.hp.slice(0, data.hp.indexOf("(")));
   }
+  // }else{
+  //   currentHp = parseInt(data.currentHp)
+  //  maxHp = parseInt(data.hp.slice(0, data.hp.indexOf("(")));
+  // }
 
   let traits = Array.isArray(data.trait) ? data.trait : [data.trait];
 
