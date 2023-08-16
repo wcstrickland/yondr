@@ -9,7 +9,7 @@
   import MonsterCombatant from "./MonsterCombatant.svelte";
   import PlayerCard from "./PlayerCard.svelte";
   let participants = $participantStore;
-  participants = participants.sort((a, b) => b.init - a.init).reverse();
+  participants = participants.sort((a, b) => b.init - a.init);
 
   participantIndex.subscribe(
     (value) => (localStorage.participantIndex = value)
@@ -20,8 +20,6 @@
   let outgoingCurrentHp;
   let outgoingMaxHp;
   let currentType;
-
-  let activeBottomPosition;
 
   function modifyParticipant(newParticipant) {
     for (let i = 0; i < participants.length; i++) {
@@ -34,11 +32,10 @@
   }
 </script>
 
-<h3>Initiative: Lowest > Highest</h3>
-<div id="wrap">
+<div id="wrap" >
   {#each $participantStore as participant, i}
     {#if i == $participantIndex}
-      <div
+      <!-- <div
         class="active-card"
         on:mousedown={(e) => {
           e.preventDefault();
@@ -97,7 +94,7 @@
             {/if}
           </div>
         </div>
-      </div>
+      </div> -->
       <div id="lower">
         <div style="margin:auto auto;">
           {#if $participantIndex > -1 && currentCombatant}
@@ -129,6 +126,11 @@
             0,
             currentCombatant.hp.indexOf("(") - 1
           );
+          if(0-e.clientY > 0){
+            window.scrollBy(0, ((0 + e.clientY) - 100) )
+          }else{
+            window.scrollBy(0, ((0 - e.clientY) + 100) )
+          }
         }}
       >
         <div class="card-section">
