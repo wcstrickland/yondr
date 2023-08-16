@@ -37,7 +37,7 @@
     {#if i == $participantIndex}
       <!-- <div
         class="active-card"
-        on:mousedown={(e) => {
+        on:click={(e) => {
           e.preventDefault();
           participantIndex.set(i);
           localStorage.participantIndex = i;
@@ -115,7 +115,7 @@
     {:else}
       <div
         class="card"
-        on:mousedown={(e) => {
+        on:click={(e) => {
           e.preventDefault();
           participantIndex.set(i);
           localStorage.participantIndex = i;
@@ -135,12 +135,6 @@
       >
         <div class="card-section">
           {participant.name}
-          <a
-            style="margin-left:2em;cursor:pointer;"
-            on:click={() => {
-              removeParticipant($participantStore, participant);
-            }}>X</a
-          >
         </div>
 
         <div class="card-section">
@@ -197,8 +191,6 @@
     display: flex;
     justify-content: center;
     grid-column: 2;
-    grid-row: 1 / 99;
-    margin-left:auto;
   }
   .card {
     border: 1px solid rgb(55, 64, 184);
@@ -231,13 +223,11 @@
     #wrap {
       display: grid;
       grid-template-columns: 1fr;
-
     }
     #lower {
       display: flex;
       justify-content: center;
       grid-column: 1;
-      grid-row:auto;
     }
     .card {
       border: 1px solid rgb(55, 64, 184);
