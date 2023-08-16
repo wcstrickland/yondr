@@ -9,7 +9,7 @@
   import MonsterCombatant from "./MonsterCombatant.svelte";
   import PlayerCard from "./PlayerCard.svelte";
   let participants = $participantStore;
-  participants = participants.sort((a, b) => b.init - a.init);
+  participants = participants.sort((a, b) => b.init - a.init).reverse();
 
   participantIndex.subscribe(
     (value) => (localStorage.participantIndex = value)
@@ -32,10 +32,10 @@
   }
 </script>
 
-<div id="wrap" >
+<div id="wrap">
   {#each $participantStore as participant, i}
     {#if i == $participantIndex}
-      <!-- <div
+      <div
         class="active-card"
         on:click={(e) => {
           e.preventDefault();
@@ -74,7 +74,7 @@
           <div>HP:</div>
           <div style="display:flex; justify-content:end;">
             <input
-              value={participant.currentHp || participant.hp}
+              value={participant.currentHp > 0 ? participant.currentHp : 0 }
               on:change={(e) => {
                 e.preventDefault();
                 let update = participant;
@@ -94,7 +94,7 @@
             {/if}
           </div>
         </div>
-      </div> -->
+      </div>
       <div id="lower">
         <div style="margin:auto auto;">
           {#if $participantIndex > -1 && currentCombatant}
@@ -126,11 +126,6 @@
             0,
             currentCombatant.hp.indexOf("(") - 1
           );
-          if(0-e.clientY > 0){
-            window.scrollBy(0, ((0 + e.clientY) - 100) )
-          }else{
-            window.scrollBy(0, ((0 - e.clientY) + 100) )
-          }
         }}
       >
         <div class="card-section">
@@ -191,6 +186,7 @@
     display: flex;
     justify-content: center;
     grid-column: 2;
+    grid-row: 1/99;
   }
   .card {
     border: 1px solid rgb(55, 64, 184);
@@ -228,6 +224,7 @@
       display: flex;
       justify-content: center;
       grid-column: 1;
+      grid-row: auto;
     }
     .card {
       border: 1px solid rgb(55, 64, 184);

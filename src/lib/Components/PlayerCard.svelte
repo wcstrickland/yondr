@@ -13,7 +13,9 @@
 <div id="player-card" style="">
   <h1>{player.name}</h1>
 
-  <div style="display: flex; justify-content:center; align-items:center;margin:auto auto;">
+  <div
+    style="display: flex; justify-content:center; align-items:center;margin:auto auto;"
+  >
     <h3 style="margin-right:30px;">HP :</h3>
     <input
       on:input={() => {
@@ -37,4 +39,12 @@
 </div>
 
 <style>
+  #player-card {
+    margin-left: 10em;
+  }
+  @media (max-width: 575px) {
+    #player-card {
+      margin-left: auto;
+    }
+  }
 </style>
