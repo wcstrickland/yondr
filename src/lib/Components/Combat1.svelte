@@ -20,6 +20,7 @@
   let outgoingCurrentHp;
   let outgoingMaxHp;
   let currentType;
+  let selected;
 
   function modifyParticipant(newParticipant) {
     for (let i = 0; i < participants.length; i++) {
@@ -37,9 +38,26 @@
   {#each $participantStore as participant, i}
     {#if i == $participantIndex}
       <div
+        id={participant.selected}
         class="active-card"
         on:click={(e) => {
-          e.preventDefault();
+          // e.preventDefault();
+          participantIndex.set(i);
+          localStorage.participantIndex = i;
+          currentCombatant = $participantStore[i];
+          currentType = currentCombatant.type;
+          outgoingCurrentHp = currentCombatant.currentHp;
+          outgoingMaxHp = currentCombatant.hp.slice(
+            0,
+            currentCombatant.hp.indexOf("(") - 1
+          );
+        }}
+        on:dblclick={(e)=>{
+          e.preventDefault()
+          for (const each of $participantStore) {
+            each["selected"] = "un-selected"
+          }
+          $participantStore[i]["selected"] = "selected"
           participantIndex.set(i);
           localStorage.participantIndex = i;
           currentCombatant = $participantStore[i];
@@ -118,9 +136,26 @@
       <!-- if active participant -->
     {:else}
       <div
+        id={participant.selected}
         class="card"
         on:click={(e) => {
-          e.preventDefault();
+          // e.preventDefault();
+          participantIndex.set(i);
+          localStorage.participantIndex = i;
+          currentCombatant = $participantStore[i];
+          currentType = currentCombatant.type;
+          outgoingCurrentHp = currentCombatant.currentHp;
+          outgoingMaxHp = currentCombatant.hp.slice(
+            0,
+            currentCombatant.hp.indexOf("(") - 1
+          );
+        }}
+        on:dblclick={(e)=>{
+          e.preventDefault()
+          for (const each of $participantStore) {
+            each["selected"] = "un-selected"
+          }
+          $participantStore[i]["selected"] = "selected"
           participantIndex.set(i);
           localStorage.participantIndex = i;
           currentCombatant = $participantStore[i];
@@ -191,6 +226,9 @@
     justify-content: center;
     grid-column: 2;
     grid-row: 1/99;
+  }
+  #selected{
+    background-color: rgba(72, 37, 92, 0.726);
   }
   .card {
     border: 1px solid rgb(55, 64, 184);
