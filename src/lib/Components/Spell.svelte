@@ -5,7 +5,12 @@
   let currentSpell;
   currentSpell = spellList.filter((x) => x["numberId"] == params.id)[0];
   let data = currentSpell;
-  import { splitAroundRoll, findDamageStrings, generateRollText, extractRoll } from "../utils/utils";
+  import {
+    splitAroundRoll,
+    findDamageStrings,
+    generateRollText,
+    extractRoll,
+  } from "../utils/utils";
   import { toast } from "@zerodevx/svelte-toast";
   document.documentElement.scrollTop = 0;
 </script>
@@ -22,17 +27,17 @@
 
 {#each splitAroundRoll(data.text, findDamageStrings(data.text)) as chunk}
   {#if chunk.replace}
-    <a
+    <a style="cursor:pointer;"
       on:click={() => {
-        toast.push(
+        let roll =
           `${data.name}: ` +
-            generateRollText(
-              extractRoll(chunk.value).num,
-              extractRoll(chunk.value).sides,
-              extractRoll(chunk.value).mod
-            ),
-          { duration: 10000 }
-        );
+          generateRollText(
+            extractRoll(chunk.value).num,
+            extractRoll(chunk.value).sides,
+            extractRoll(chunk.value).mod
+          );
+        toast.push(roll, { duration: 10000 });
+        navigator.clipboard.writeText(roll);
       }}>{chunk.value}</a
     >
   {:else}

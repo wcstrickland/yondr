@@ -43,12 +43,11 @@
     "30": "+10",
   };
 
-
   export let currentHp;
   export let maxHp;
-  if(data.type === "custom"){
-   currentHp = parseInt(data.hp);
-   maxHp = parseInt(data.hp);
+  if (data.type === "custom") {
+    currentHp = parseInt(data.hp);
+    maxHp = parseInt(data.hp);
   }
   // }else{
   //   currentHp = parseInt(data.currentHp)
@@ -134,17 +133,19 @@
               />
             </label>
           </div>
-            <input
-              style="background-color: white; color:black;height:20px; width:80px; margin-right:30px;"
-              type="text"
-              placeholder="damage"
-              on:change={(e)=>{
-                currentHp = parseInt(currentHp) + (-1 * parseInt(e.currentTarget.value))
-                data.currentHp = parseInt(data.currentHp) + (-1 * parseInt(e.currentTarget.value))
-                modifyParticipant(data)
-                e.currentTarget.value = ""
-              }}
-            />
+          <input
+            style="background-color: white; color:black;height:20px; width:80px; margin-right:30px;"
+            type="text"
+            placeholder="damage"
+            on:change={(e) => {
+              currentHp =
+                parseInt(currentHp) + -1 * parseInt(e.currentTarget.value);
+              data.currentHp =
+                parseInt(data.currentHp) + -1 * parseInt(e.currentTarget.value);
+              modifyParticipant(data);
+              e.currentTarget.value = "";
+            }}
+          />
         </div>
         <!-- property line -->
         <div class="property-line first">
@@ -164,12 +165,12 @@
             <div class="stat-header"><b class="stat-value">STR</b></div>
             <a
               on:click={() => {
-                toast.push(
-                  "Strength: " + generateRollText(1, 20, modifiers[data.str]),
-                  {
-                    duration: 10000,
-                  }
-                );
+                let roll =
+                  "Strength: " + generateRollText(1, 20, modifiers[data.str]);
+                toast.push(roll, {
+                  duration: 10000,
+                });
+                navigator.clipboard.writeText(roll);
               }}
             >
               {data.str}
@@ -181,12 +182,12 @@
             <div class="stat-header"><b class="stat-value">DEX</b></div>
             <a
               on:click={() => {
-                toast.push(
-                  "Dexterity: " + generateRollText(1, 20, modifiers[data.dex]),
-                  {
-                    duration: 10000,
-                  }
-                );
+                let roll =
+                  "Dexterity: " + generateRollText(1, 20, modifiers[data.dex]);
+                toast.push(roll, {
+                  duration: 10000,
+                });
+                navigator.clipboard.writeText(roll);
               }}
             >
               {data.dex}
@@ -198,13 +199,13 @@
             <div class="stat-header"><b class="stat-value">CON</b></div>
             <a
               on:click={() => {
-                toast.push(
+                let roll =
                   "Constitution: " +
-                    generateRollText(1, 20, modifiers[data.con]),
-                  {
-                    duration: 10000,
-                  }
-                );
+                  generateRollText(1, 20, modifiers[data.con]);
+                toast.push(roll, {
+                  duration: 10000,
+                });
+                navigator.clipboard.writeText(roll);
               }}
             >
               {data.con}
@@ -216,13 +217,13 @@
             <div class="stat-header"><b class="stat-value">INT</b></div>
             <a
               on:click={() => {
-                toast.push(
+                let roll =
                   "Inteligence: " +
-                    generateRollText(1, 20, modifiers[data.int]),
-                  {
-                    duration: 10000,
-                  }
-                );
+                  generateRollText(1, 20, modifiers[data.int]);
+                toast.push(roll, {
+                  duration: 10000,
+                });
+                navigator.clipboard.writeText(roll);
               }}
             >
               {data.int}
@@ -234,12 +235,12 @@
             <div class="stat-header"><b class="stat-value">WIS</b></div>
             <a
               on:click={() => {
-                toast.push(
-                  "Wisdom: " + generateRollText(1, 20, modifiers[data.wis]),
-                  {
-                    duration: 10000,
-                  }
-                );
+                let roll =
+                  "Wisdom: " + generateRollText(1, 20, modifiers[data.wis]);
+                toast.push(roll, {
+                  duration: 10000,
+                });
+                navigator.clipboard.writeText(roll);
               }}
             >
               {data.wis}
@@ -251,12 +252,12 @@
             <div class="stat-header"><b class="stat-value">CHA</b></div>
             <a
               on:click={() => {
-                toast.push(
-                  "Charisma: " + generateRollText(1, 20, modifiers[data.cha]),
-                  {
-                    duration: 10000,
-                  }
-                );
+                let roll =
+                  "Charisma: " + generateRollText(1, 20, modifiers[data.cha]);
+                toast.push(roll, {
+                  duration: 10000,
+                });
+                navigator.clipboard.writeText(roll);
               }}
             >
               {data.cha}
@@ -305,14 +306,14 @@
               {#if chunk.replace}
                 <a
                   on:click={() => {
-                    toast.push(
+                    let roll =
                       `${splitAroundRoll(
                         data.save,
                         findDamageStrings(data.save)
                       )[i - 1].value.replace(",", "")} Save: ` +
-                        generateRollText(1, 20, extractRoll(chunk.value).mod),
-                      { duration: 10000 }
-                    );
+                      generateRollText(1, 20, extractRoll(chunk.value).mod);
+                    toast.push(roll, { duration: 10000 });
+                    navigator.clipboard.writeText(roll);
                   }}>{chunk.value}</a
                 >
               {:else}
@@ -329,14 +330,14 @@
                 {#if chunk.replace}
                   <a
                     on:click={() => {
-                      toast.push(
+                      let roll =
                         `${splitAroundRoll(
                           data.skill,
                           findDamageStrings(data.skill)
                         )[i - 1].value.replace(",", "")}: ` +
-                          generateRollText(1, 20, extractRoll(chunk.value).mod),
-                        { duration: 10000 }
-                      );
+                        generateRollText(1, 20, extractRoll(chunk.value).mod);
+                      toast.push(roll, { duration: 10000 });
+                      navigator.clipboard.writeText(roll);
                     }}>{chunk.value}</a
                   >
                 {:else}
@@ -405,15 +406,15 @@
               {#if chunk.replace}
                 <a
                   on:click={() => {
-                    toast.push(
+                    let roll =
                       `${action.name}: ` +
-                        generateRollText(
-                          extractRoll(chunk.value).num,
-                          extractRoll(chunk.value).sides,
-                          extractRoll(chunk.value).mod
-                        ),
-                      { duration: 10000 }
-                    );
+                      generateRollText(
+                        extractRoll(chunk.value).num,
+                        extractRoll(chunk.value).sides,
+                        extractRoll(chunk.value).mod
+                      );
+                    toast.push(roll, { duration: 10000 });
+                    navigator.clipboard.writeText(roll);
                   }}>{chunk.value}</a
                 >
               {:else}
@@ -437,14 +438,13 @@
                 {#if chunk.replace}
                   <a
                     on:click={() => {
-                      toast.push(
-                        generateRollText(
-                          extractRoll(chunk.value).num,
-                          extractRoll(chunk.value).sides,
-                          extractRoll(chunk.value).mod
-                        ),
-                        { duration: 10000 }
+                      let roll = generateRollText(
+                        extractRoll(chunk.value).num,
+                        extractRoll(chunk.value).sides,
+                        extractRoll(chunk.value).mod
                       );
+                      toast.push(roll, { duration: 10000 });
+                      navigator.clipboard.writeText(roll);
                     }}>{chunk.value}</a
                   >
                 {:else}
