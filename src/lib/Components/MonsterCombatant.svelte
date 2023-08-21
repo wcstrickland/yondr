@@ -111,6 +111,17 @@
                 modifyParticipant(data);
               }}
             />
+            <input
+              style="background-color: white; color:black;height:20px; width:80px; margin-right:30px;"
+              type="text"
+              placeholder="damage"
+              on:change={(e)=>{
+                currentHp += parseInt(e.currentTarget.value)
+                data.currentHp += parseInt(e.currentTarget.value)
+                modifyParticipant(data)
+                e.currentTarget.value = ""
+              }}
+            />
             <label
               style="display:flex;color:black;flex-direction:column;flex:1;"
               for="range"
