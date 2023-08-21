@@ -116,8 +116,8 @@
               type="text"
               placeholder="damage"
               on:change={(e)=>{
-                currentHp += parseInt(e.currentTarget.value)
-                data.currentHp += parseInt(e.currentTarget.value)
+                currentHp += (-1 * parseInt(e.currentTarget.value))
+                data.currentHp +=  (-1 * parseInt(e.currentTarget.value))
                 modifyParticipant(data)
                 e.currentTarget.value = ""
               }}
