@@ -57,6 +57,7 @@
         if (init !== "" && name !== "") {
           player["uid"] = uuidv4();
           player["type"] = "player"
+          player["currentHp"] = hp;
           addParticipant($participantStore, player);
           toast.push(`${player.name} added with initiative of ${init}`);
           init = "";

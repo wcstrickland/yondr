@@ -34,6 +34,19 @@
     <h3>/ {maxHp}</h3>
   </div>
 
+          <input
+            style=""
+            type="text"
+            placeholder="damage"
+            on:change={(e) => {
+              currentHp =
+                parseInt(currentHp) + -1 * parseInt(e.currentTarget.value);
+              player.currentHp =
+                parseInt(player.currentHp) + -1 * parseInt(e.currentTarget.value);
+              modifyParticipant(player);
+              e.currentTarget.value = "";
+            }}
+          />
   <h1>AC: {player.ac}</h1>
   <h1>Initiative: {player.init}</h1>
 </div>

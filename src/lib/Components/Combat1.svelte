@@ -33,6 +33,7 @@
 </script>
 
 <div id="wrap">
+  <!-- <div class="card">Next</div> -->
   {#each $participantStore as participant, i}
     {#if i == $participantIndex}
       <div
@@ -74,7 +75,10 @@
           <div>HP:</div>
           <div style="display:flex; justify-content:end;">
             <input
-              value={participant.currentHp > 0 ? participant.currentHp : 0 }
+              value={
+              participant.currentHp > 0 
+              ? participant.currentHp 
+              : 0 }
               on:change={(e) => {
                 e.preventDefault();
                 let update = participant;
