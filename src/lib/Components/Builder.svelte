@@ -113,6 +113,13 @@
     setParticipants(participants);
   }
 
+  let isMobile = navigator.userAgent.match(/Android/i)||
+  navigator.userAgent.match(/iPhone/i)||
+  navigator.userAgent.match(/iPad/i)||
+  navigator.userAgent.match(/iPod/i)||
+  navigator.userAgent.match(/Blackberry/i);
+
+
   let challenge = "0";
   let init = "";
   let upperChallenge = "30";
@@ -174,6 +181,7 @@
           }}>Clear Encounter</button
         >
       </div>
+      {#if !isMobile}
       <div style="margin-bottom:.5em;">
         <button
           class="encounter-button"
@@ -214,6 +222,7 @@
           }}>Load Encounter</button
         >
       </div>
+      {/if}
     </div>
   </div>
 
