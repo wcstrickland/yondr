@@ -5,7 +5,10 @@
     splitAroundRoll,
     findDamageStrings,
     extractRoll,
+    findSpells,
+    addSpellIds,
   } from "../utils/utils.js";
+  import spell_list from "../json/spell_list.json";
 
   export let modifyParticipant;
   export let data;
@@ -379,8 +382,19 @@
                 <b>{trait.name}: </b>
                 {#if Array.isArray(trait.text)}
                   {#each trait.text as line}
-                    {line}
-                    <br />
+                    {#if trait.name === "Spellcasting"}
+                      {#each addSpellIds(splitAroundRoll(line, findSpells(line, spell_list)), spell_list) as chunk}
+                        {#if chunk.replace}
+                          <a target="_blank" href={`#/spell/${chunk.spellId}`}>{chunk.value}</a>
+                        {:else}
+                          {chunk.value}
+                        {/if}
+                      {/each}
+            <br>
+                    {:else}
+                      {line}
+                      <br />
+                    {/if}
                   {/each}
                 {:else}
                   {trait.text}

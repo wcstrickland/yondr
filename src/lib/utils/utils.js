@@ -91,7 +91,34 @@ export function splitAroundRoll(dataString, patternMatches) {
 
 
 export function uuidv4() {
-  return ([1e7]+-1e3+-4e3+-8e3+-1e11).replace(/[018]/g, c =>
-    (c ^ crypto.getRandomValues(new Uint8Array(1))[0] & 15 >> c / 4).toString(16)
-  );
+    return ([1e7] + -1e3 + -4e3 + -8e3 + -1e11).replace(/[018]/g, c =>
+        (c ^ crypto.getRandomValues(new Uint8Array(1))[0] & 15 >> c / 4).toString(16)
+    );
+}
+
+
+export function findSpells(traitText, spell_list) {
+    let outPutList = [];
+    let wordArray = traitText.split(",")
+    for (let word of wordArray) {
+        if (word.includes(":")) {
+            word = word.slice(word.indexOf(":") + 1)
+        }
+        if (spell_list.includes(word.trim())) {
+            outPutList.push(word)
+        }
+    }
+    return outPutList
+}
+
+export function addSpellIds(chunks, spell_list) {
+    for (let chunk of chunks) {
+        if (chunk.replace) {
+            if (chunk.value.includes(":")) {
+                chunk.value = chunk.value.slice(chunk.value.indexOf(":") + 1)
+            }
+            chunk["spellId"] = spell_list.indexOf(chunk.value.trim())
+        }
+    }
+    return chunks
 }
