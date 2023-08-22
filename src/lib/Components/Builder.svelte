@@ -113,12 +113,12 @@
     setParticipants(participants);
   }
 
-  let isMobile = navigator.userAgent.match(/Android/i)||
-  navigator.userAgent.match(/iPhone/i)||
-  navigator.userAgent.match(/iPad/i)||
-  navigator.userAgent.match(/iPod/i)||
-  navigator.userAgent.match(/Blackberry/i);
-
+  let isMobile =
+    navigator.userAgent.match(/Android/i) ||
+    navigator.userAgent.match(/iPhone/i) ||
+    navigator.userAgent.match(/iPad/i) ||
+    navigator.userAgent.match(/iPod/i) ||
+    navigator.userAgent.match(/Blackberry/i);
 
   let challenge = "0";
   let init = "";
@@ -156,21 +156,23 @@
 </svelte:head>
 
 <form
-  style="text-align:start;display:flex;flex-direction:column; top:0px; background-color:#242424;"
+  id="grid-container"
+  style="text-align:start;flex-direction:column; top:0px; background-color:#242424;"
 >
-  <div class="frm-chnk" style="justify-content: center;">
-    <div style="">
-      <button
-        on:click={(e) => {
-          e.preventDefault();
-          push("/combat");
-        }}>Start Combat</button
-      >
-    </div>
-  </div>
-
-  <div class="frm-chnk" style="justify-content:center">
-    <div style="display: flex; flex-direction:column;">
+  <div
+    id="encounter-button-section"
+    class="frm-chnk"
+    style="justify-content:center"
+  >
+    <div style="display: flex; flex-direction:column; align-items:center;">
+      <div style="margin-bottom:.5em;">
+        <button
+          on:click={(e) => {
+            e.preventDefault();
+            push("/combat");
+          }}>Start Encounter</button
+        >
+      </div>
       <div style="margin-bottom:.5em;">
         <button
           class="encounter-button"
@@ -182,138 +184,141 @@
         >
       </div>
       {#if !isMobile}
-      <div style="margin-bottom:.5em;">
-        <button
-          class="encounter-button"
-          on:click={async function z(e) {
-            e.preventDefault();
-            const newHandle = await window.showSaveFilePicker({
-              types: [
-                {
-                  accept: { "text/plain": [".json"] },
-                },
-              ],
-            });
-            const writableStream = await newHandle.createWritable();
-            await writableStream.write(JSON.stringify($participantStore));
-            await writableStream.close();
-            toast.push("File Saved", { duration: 1000 });
-          }}>Save Encounter</button
-        >
-      </div>
-      <div style="margin-bottom:.5em;">
-        <button
-          class="encounter-button"
-          on:click={async function z(e) {
-            e.preventDefault();
-            const [newHandle] = await window.showOpenFilePicker({
-              types: [
-                {
-                  accept: { "text/plain": [".json"] },
-                },
-              ],
-              multiple: false,
-            });
-            const file = await newHandle.getFile();
-            let fileData = await file.text()
-            let fileObject = JSON.parse(fileData)
-            setParticipants(fileObject)
-            toast.push("Encounter Loaded?", { duration: 1000 });
-          }}>Load Encounter</button
-        >
-      </div>
+        <div style="margin-bottom:.5em;">
+          <button
+            class="encounter-button"
+            on:click={async function z(e) {
+              e.preventDefault();
+              const newHandle = await window.showSaveFilePicker({
+                types: [
+                  {
+                    accept: { "text/plain": [".json"] },
+                  },
+                ],
+              });
+              const writableStream = await newHandle.createWritable();
+              await writableStream.write(JSON.stringify($participantStore));
+              await writableStream.close();
+              toast.push("File Saved", { duration: 1000 });
+            }}>Save Encounter</button
+          >
+        </div>
+        <div style="margin-bottom:.5em;">
+          <button
+            class="encounter-button"
+            on:click={async function z(e) {
+              e.preventDefault();
+              const [newHandle] = await window.showOpenFilePicker({
+                types: [
+                  {
+                    accept: { "text/plain": [".json"] },
+                  },
+                ],
+                multiple: false,
+              });
+              const file = await newHandle.getFile();
+              let fileData = await file.text();
+              let fileObject = JSON.parse(fileData);
+              setParticipants(fileObject);
+              toast.push("Encounter Loaded?", { duration: 1000 });
+            }}>Load Encounter</button
+          >
+        </div>
       {/if}
     </div>
   </div>
 
-  <div class="frm-chnk">
-    <select class="frm-sec" bind:value={currentMonsterName}>
-      <option value="" disabled selected>Select Monster</option>
-      {#each monster_list as monster}
-        <option>
-          {monster["name"]}
-        </option>
-      {/each}
-    </select>
-  </div>
-
-  <div class="frm-chnk">
-    <label class="frm-sec" for="cr">Minimum Challenge</label>
-    <select bind:value={challenge} name="cr" id="cr">
-      {#each crs.filter((x) => parseInt(x) <= parseInt(upperChallenge)) as cr}
-        <option>{cr}</option>
-      {/each}
-    </select>
-  </div>
-
-  <div class="frm-chnk">
-    <label class="frm-sec" for="uppercr">Maximum Challenge</label>
-    <select bind:value={upperChallenge} name="uppercr" id="uppercr">
-      {#each crs.filter((x) => parseInt(x) >= parseInt(challenge)) as cr}
-        <option>{cr}</option>
-      {/each}
-    </select>
-  </div>
-
-  <div class="frm-chnk">
-    <label class="frm-sec" for="type">Type</label>
-    <select bind:value={type} name="type" id="type">
-      {#each types as type}
-        <option>{type}</option>
-      {/each}
-    </select>
-  </div>
-
-  <div class="frm-chnk">
-    <label class="frm-sec" for="search">Search</label>
-    <input bind:value={searchString} type="text" />
-  </div>
-
-  <div class="frm-chnk" style="margin-top:.5em;">
-    <a
-      class="frm-sec linky"
-      on:click={(e) => {
-        e.preventDefault();
-        init = randomNumber(1, 20).toString();
-      }}>Initiative</a
-    >
-    <input bind:value={init} type="text" />
-  </div>
-
-  <div class="frm-chnk" style="margin: 0 0;">
-    <button
-      class="frm-sec"
-      on:click={(e) => {
-        e.preventDefault();
-        if (init !== "") {
-          let copyMonster = { ...currentMonster };
-          copyMonster["init"] = init;
-          copyMonster["uid"] = uuidv4();
-          addParticipant($participantStore, copyMonster);
-          toast.push(`${copyMonster.name} added with initiative of ${init}`);
-          init = "";
-        } else {
-          toast.push(`Input initiative for ${currentMonster["name"]}`);
-        }
-      }}>Add to Combat</button
-    >
-  </div>
-  <PlayerSearchSection />
-</form>
-
-<div style="margin-top:3em;">
-  {#each $participantStore as participant}
-    <div style="display: flex; justify-content:start;">
-      <a
-        style="margin-right:1em; cursor:pointer;"
-        on:click={() => {
-          removeParticipant($participantStore, participant);
-        }}>X</a
-      >
-      <div>{participant.name} - initiative: {participant.init}</div>
+  <div id="monster-search-section">
+    <div class="frm-chnk">
+      <select class="frm-sec" bind:value={currentMonsterName}>
+        <option value="" disabled selected>Select Monster</option>
+        {#each monster_list as monster}
+          <option>
+            {monster["name"]}
+          </option>
+        {/each}
+      </select>
     </div>
-  {/each}
-</div>
+
+    <div class="frm-chnk">
+      <label class="frm-sec" for="cr">Minimum Challenge</label>
+      <select bind:value={challenge} name="cr" id="cr">
+        {#each crs.filter((x) => parseInt(x) <= parseInt(upperChallenge)) as cr}
+          <option>{cr}</option>
+        {/each}
+      </select>
+    </div>
+
+    <div class="frm-chnk">
+      <label class="frm-sec" for="uppercr">Maximum Challenge</label>
+      <select bind:value={upperChallenge} name="uppercr" id="uppercr">
+        {#each crs.filter((x) => parseInt(x) >= parseInt(challenge)) as cr}
+          <option>{cr}</option>
+        {/each}
+      </select>
+    </div>
+
+    <div class="frm-chnk">
+      <label class="frm-sec" for="type">Type</label>
+      <select bind:value={type} name="type" id="type">
+        {#each types as type}
+          <option>{type}</option>
+        {/each}
+      </select>
+    </div>
+
+    <div class="frm-chnk">
+      <label class="frm-sec" for="search">Search</label>
+      <input bind:value={searchString} type="text" />
+    </div>
+
+    <div class="frm-chnk" style="margin-top:.5em;">
+      <a
+        class="frm-sec linky"
+        on:click={(e) => {
+          e.preventDefault();
+          init = randomNumber(1, 20).toString();
+        }}>Initiative</a
+      >
+      <input bind:value={init} type="text" />
+    </div>
+
+    <div class="frm-chnk" style="margin: 0 0;">
+      <button
+        class="frm-sec"
+        on:click={(e) => {
+          e.preventDefault();
+          if (init !== "") {
+            let copyMonster = { ...currentMonster };
+            copyMonster["init"] = init;
+            copyMonster["uid"] = uuidv4();
+            addParticipant($participantStore, copyMonster);
+            toast.push(`${copyMonster.name} added with initiative of ${init}`);
+            init = "";
+          } else {
+            toast.push(`Input initiative for ${currentMonster["name"]}`);
+          }
+        }}>Add to Combat</button
+      >
+    </div>
+  </div>
+  <div id="player-search-section">
+    <PlayerSearchSection />
+  </div>
+  <div id="participant-list" >
+    {#each $participantStore as participant}
+      <div style="display: flex; justify-content:start;">
+        <a
+          style="margin-right:1em; cursor:pointer;"
+          on:click={() => {
+            removeParticipant($participantStore, participant);
+          }}>X</a
+        >
+        <div>{participant.name} - initiative: {participant.init}</div>
+      </div>
+    {/each}
+  </div>
+</form>
 
 <style>
   .frm-chnk {
@@ -329,6 +334,56 @@
     cursor: pointer;
   }
 
-  .encounter-button {
+  #grid-container {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1em;
+  }
+
+  #encounter-button-section {
+    grid-row: 1;
+    grid-column: 2;
+  }
+
+  #participant-list {
+    grid-row: 2;
+    grid-column: 2;
+    margin: auto;
+  }
+
+  #player-search-section {
+    grid-row: 2;
+    grid-column: 1;
+  }
+  #monster-search-section {
+    grid-row: 1;
+    grid-column: 1;
+  }
+
+  @media (max-width: 575px) {
+    #grid-container {
+      display: grid;
+      grid-template-columns: 1fr;
+    }
+
+    #encounter-button-section {
+      grid-column: 1;
+      grid-row: 1;
+    }
+
+    #participant-list {
+      grid-column: 1;
+      margin: auto;
+      grid-row: 4;
+    }
+
+    #player-search-section {
+      grid-column: 1;
+      grid-row: 3;
+    }
+    #monster-search-section {
+      grid-column: 1;
+      grid-row: 2;
+    }
   }
 </style>
