@@ -162,15 +162,58 @@
     </div>
   </div>
 
-  <div class="frm-chnk" style="justify-content: center;">
-    <div style="margin-bottom:1em;">
-      <button
-        on:click={(e) => {
-          e.preventDefault();
-          clearParticipants();
-          toast.push("Encounter Cleared", { duration: 1000 });
-        }}>Clear Encounter</button
-      >
+  <div class="frm-chnk" style="justify-content:center">
+    <div style="display: flex; flex-direction:column;">
+      <div style="margin-bottom:.5em;">
+        <button
+          class="encounter-button"
+          on:click={(e) => {
+            e.preventDefault();
+            clearParticipants();
+            toast.push("Encounter Cleared", { duration: 1000 });
+          }}>Clear Encounter</button
+        >
+      </div>
+      <div style="margin-bottom:.5em;">
+        <button
+          class="encounter-button"
+          on:click={async function z(e) {
+            e.preventDefault();
+            const newHandle = await window.showSaveFilePicker({
+              types: [
+                {
+                  accept: { "text/plain": [".json"] },
+                },
+              ],
+            });
+            const writableStream = await newHandle.createWritable();
+            await writableStream.write(JSON.stringify($participantStore));
+            await writableStream.close();
+            toast.push("File Saved", { duration: 1000 });
+          }}>Save Encounter</button
+        >
+      </div>
+      <div style="margin-bottom:.5em;">
+        <button
+          class="encounter-button"
+          on:click={async function z(e) {
+            e.preventDefault();
+            const [newHandle] = await window.showOpenFilePicker({
+              types: [
+                {
+                  accept: { "text/plain": [".json"] },
+                },
+              ],
+              multiple: false,
+            });
+            const file = await newHandle.getFile();
+            let fileData = await file.text()
+            let fileObject = JSON.parse(fileData)
+            setParticipants(fileObject)
+            toast.push("Encounter Loaded?", { duration: 1000 });
+          }}>Load Encounter</button
+        >
+      </div>
     </div>
   </div>
 
@@ -252,9 +295,12 @@
 <div style="margin-top:3em;">
   {#each $participantStore as participant}
     <div style="display: flex; justify-content:start;">
-      <a style="margin-right:1em; cursor:pointer;" on:click={()=>{
-        removeParticipant($participantStore, participant)
-      }}>X</a>
+      <a
+        style="margin-right:1em; cursor:pointer;"
+        on:click={() => {
+          removeParticipant($participantStore, participant);
+        }}>X</a
+      >
       <div>{participant.name} - initiative: {participant.init}</div>
     </div>
   {/each}
@@ -272,5 +318,8 @@
 
   .linky {
     cursor: pointer;
+  }
+
+  .encounter-button {
   }
 </style>
