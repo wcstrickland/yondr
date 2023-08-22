@@ -216,11 +216,18 @@
                 ],
                 multiple: false,
               });
+              try{
               const file = await newHandle.getFile();
               let fileData = await file.text();
               let fileObject = JSON.parse(fileData);
-              setParticipants(fileObject);
-              toast.push("Encounter Loaded?", { duration: 1000 });
+              let copyOfOld = $participantStore;
+              let newParticipants = [...copyOfOld, ...fileObject]
+              setParticipants(newParticipants);
+              toast.push("Encounter Loaded", { duration: 1000 });
+              }catch(e){
+                toast.push("Something went wrong. CTRL+F5 will likely fix any problems with the app.", {duration: 9000})
+                console.log(e)
+              }
             }}>Load Encounter</button
           >
         </div>
