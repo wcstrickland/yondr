@@ -52,12 +52,12 @@
             currentCombatant.hp.indexOf("(") - 1
           );
         }}
-        on:dblclick={(e)=>{
-          e.preventDefault()
+        on:dblclick={(e) => {
+          e.preventDefault();
           for (const each of $participantStore) {
-            each["selected"] = "un-selected"
+            each["selected"] = "un-selected";
           }
-          $participantStore[i]["selected"] = "selected"
+          $participantStore[i]["selected"] = "selected";
           participantIndex.set(i);
           localStorage.participantIndex = i;
           currentCombatant = $participantStore[i];
@@ -75,7 +75,21 @@
 
         <div class="card-section">
           <div>Initiative:</div>
-          <div>{participant.init}</div>
+          <!-- <div>{participant.init}</div> -->
+          <input
+            style="width:40px;"
+            type="text"
+            value={participant.init}
+            on:change={(e) => {
+              e.preventDefault();
+              let update = participant;
+              update["init"] = e.currentTarget.value;
+              modifyParticipant(update);
+              let participantCopy = $participantStore
+              participantCopy = participantCopy.sort((a,b) => b.init - a.init).reverse();
+              setParticipants(participantCopy)
+            }}
+          />
         </div>
 
         <div class="card-section">
@@ -93,10 +107,7 @@
           <div>HP:</div>
           <div style="display:flex; justify-content:end;">
             <input
-              value={
-              participant.currentHp > 0 
-              ? participant.currentHp 
-              : 0 }
+              value={participant.currentHp > 0 ? participant.currentHp : 0}
               on:change={(e) => {
                 e.preventDefault();
                 let update = participant;
@@ -150,12 +161,12 @@
             currentCombatant.hp.indexOf("(") - 1
           );
         }}
-        on:dblclick={(e)=>{
-          e.preventDefault()
+        on:dblclick={(e) => {
+          e.preventDefault();
           for (const each of $participantStore) {
-            each["selected"] = "un-selected"
+            each["selected"] = "un-selected";
           }
-          $participantStore[i]["selected"] = "selected"
+          $participantStore[i]["selected"] = "selected";
           participantIndex.set(i);
           localStorage.participantIndex = i;
           currentCombatant = $participantStore[i];
@@ -227,7 +238,7 @@
     grid-column: 2;
     grid-row: 1/99;
   }
-  #selected{
+  #selected {
     background-color: rgba(72, 37, 92, 0.726);
   }
   .card {
