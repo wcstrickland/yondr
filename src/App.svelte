@@ -3,6 +3,7 @@
   import Router from "svelte-spa-router"
   import MonsterSearch from './lib/Components/MonsterSearch.svelte';
   import Monster from './lib/Components/Monster.svelte';
+  import MonsterSheet from './lib/Components/MonsterSheet.svelte';
   import Builder from './lib/Components/Builder.svelte';
   import Encounter from './lib/Components/Encounter.svelte';
   import ToggleButton from './lib/Components/ToggleButton.svelte';
@@ -14,7 +15,8 @@
 
 const routes = {
   '/' : MonsterSearch,
-  '/monster/:id' :Monster,
+  '/monster/:id' :MonsterSheet,
+  // '/monster/:id' :Monster,
   '/builder' : Builder,
   "/createmonster": CustomMonsterBuilder,
   "/spells": SpellSearch,

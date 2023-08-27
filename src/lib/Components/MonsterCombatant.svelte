@@ -52,10 +52,6 @@
     currentHp = parseInt(data.hp);
     maxHp = parseInt(data.hp);
   }
-  // }else{
-  //   currentHp = parseInt(data.currentHp)
-  //  maxHp = parseInt(data.hp.slice(0, data.hp.indexOf("(")));
-  // }
 
   let traits = Array.isArray(data.trait) ? data.trait : [data.trait];
 
@@ -382,7 +378,7 @@
                 <b>{trait.name}: </b>
                 {#if Array.isArray(trait.text)}
                   {#each trait.text as line}
-                    {#if trait.name === "Spellcasting"}
+                    {#if trait.name.includes("Spellcasting")}
                       {#each addSpellIds(splitAroundRoll(line, findSpells(line, spell_list)), spell_list) as chunk}
                         {#if chunk.replace}
                           <a target="_blank" href={`#/spell/${chunk.spellId}`}>{chunk.value}</a>
