@@ -381,7 +381,9 @@
                     {#if trait.name.includes("Spellcasting")}
                       {#each addSpellIds(splitAroundRoll(line, findSpells(line, spell_list)), spell_list) as chunk}
                         {#if chunk.replace}
-                          <a target="_blank" href={`#/spell/${chunk.spellId}`}>{chunk.value}</a>
+                          <a  on:click={()=>{
+                            window.open(`#/spell/${chunk.spellId}`, '_blank', 'status=yes')
+                          }}>{chunk.value}</a >
                         {:else}
                           {chunk.value}
                         {/if}

@@ -12,6 +12,7 @@
   import Spell from './lib/Components/Spell.svelte';
   import Combat from './lib/Components/Combat.svelte';
   import Combat1 from './lib/Components/Combat1.svelte';
+  import BackButton from './lib/Components/BackButton.svelte';
 
 const routes = {
   '/' : MonsterSearch,
@@ -30,6 +31,7 @@ const routes = {
   <SvelteToast options={{ reversed: true, intro: { y: 192 } }} />
   <Router {routes}/>
   <ToggleButton imgSrc={"d20.png"}/>
+  <BackButton/>
 </div>
 
 <style>
