@@ -26,5 +26,6 @@
     height: 40px;
     max-width: 40px;
     max-height: 40px;
+    cursor: pointer;
   }
 </style>
