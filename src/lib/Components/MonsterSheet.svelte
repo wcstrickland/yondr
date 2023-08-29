@@ -14,19 +14,18 @@
     participantStore,
     addParticipant,
     setParticipants,
-    customMonsters
+    customMonsters,
   } from "../utils/stores.js";
   import { randomNumber, uuidv4 } from "../utils/utils.js";
-
 
   import spell_list from "../json/spell_list.json";
 
   export let params = {};
   let monsterList = monsters["monsters"];
   let currentMonster;
-  if(params.id.length > 5){
-    currentMonster = $customMonsters.filter(x => x.uid === params.id)[0]
-  }else{
+  if (params.id.length > 5) {
+    currentMonster = $customMonsters.filter((x) => x.uid === params.id)[0];
+  } else {
     currentMonster = monsterList.filter((x) => x["numberId"] == params.id)[0];
   }
   let data = currentMonster;
@@ -63,6 +62,7 @@
     "29": "+9",
     "30": "+10",
   };
+  let showDescription = false;
 
   let currentHp;
   let maxHp;
@@ -113,9 +113,9 @@
                 let newUid = uuidv4();
                 data["init"] = randomNumber(1, 20);
                 data["uid"] = newUid;
-                let newData = {...data}
+                let newData = { ...data };
                 addParticipant($participantStore, newData);
-                console.log($participantStore)
+                console.log($participantStore);
                 toast.push(
                   `${data.name} added with initiative of ${data["init"]}`,
                   { duration: 1000 }
@@ -424,12 +424,49 @@
                       {/each}
                       <br />
                     {:else}
-                      {line}
+                      {#each splitAroundRoll(line, findDamageStrings(line)) as chunk}
+                        {#if chunk.replace}
+                          <a
+                            on:click={() => {
+                              let roll =
+                                `${trait.name}: ` +
+                                generateRollText(
+                                  extractRoll(chunk.value).num,
+                                  extractRoll(chunk.value).sides,
+                                  extractRoll(chunk.value).mod
+                                );
+                              toast.push(roll, { duration: 10000 });
+                              navigator.clipboard.writeText(roll);
+                            }}>{chunk.value}</a
+                          >
+                        {:else}
+                          {chunk.value}
+                        {/if}
+                      {/each}
+
                       <br />
                     {/if}
                   {/each}
                 {:else}
-                  {trait.text}
+                  {#each splitAroundRoll(trait.text, findDamageStrings(trait.text)) as chunk}
+                    {#if chunk.replace}
+                      <a
+                        on:click={() => {
+                          let roll =
+                            `${trait.name}: ` +
+                            generateRollText(
+                              extractRoll(chunk.value).num,
+                              extractRoll(chunk.value).sides,
+                              extractRoll(chunk.value).mod
+                            );
+                          toast.push(roll, { duration: 10000 });
+                          navigator.clipboard.writeText(roll);
+                        }}>{chunk.value}</a
+                      >
+                    {:else}
+                      {chunk.value}
+                    {/if}
+                  {/each}
                 {/if}
                 <br />
                 <br />
@@ -515,11 +552,50 @@
               {/if}
               {#if Array.isArray(legend.text)}
                 {#each legend.text as line}
-                  {line}
+                  {#each splitAroundRoll(line, findDamageStrings(line)) as chunk}
+                    {#if chunk.replace}
+                      <a
+                        on:click={() => {
+                          let roll =
+                            `${legend.name}: ` +
+                            generateRollText(
+                              extractRoll(chunk.value).num,
+                              extractRoll(chunk.value).sides,
+                              extractRoll(chunk.value).mod
+                            );
+                          toast.push(roll, { duration: 10000 });
+                          navigator.clipboard.writeText(roll);
+                        }}>{chunk.value}</a
+                      >
+                    {:else}
+                      {chunk.value}
+                    {/if}
+                  {/each}
+
                   <br />
                 {/each}
               {:else}
-                {legend.text}
+                {#each splitAroundRoll(legend.text, findDamageStrings(legend.text)) as chunk}
+                  {#if chunk.replace}
+                    <a
+                      on:click={() => {
+                        let roll =
+                          `${legend.name}: ` +
+                          generateRollText(
+                            extractRoll(chunk.value).num,
+                            extractRoll(chunk.value).sides,
+                            extractRoll(chunk.value).mod
+                          );
+                        toast.push(roll, { duration: 10000 });
+                        navigator.clipboard.writeText(roll);
+                      }}>{chunk.value}</a
+                    >
+                  {:else}
+                    {chunk.value}
+                  {/if}
+                {/each}
+
+                <!-- {legend.text} -->
               {/if}
               <br />
               <br />
@@ -527,6 +603,18 @@
           </p>
         </div>
       {/if}
+      <div id="reactions">
+        <div class="creature-heading">
+          <h1>
+            <a style="" on:click={() => (showDescription = !showDescription)}>
+              Description
+            </a>
+          </h1>
+        </div>
+        {#if showDescription}
+          <p>{data.description}</p>
+        {/if}
+      </div>
       <hr class="orange-border bottom" />
     </div>
   </div>
@@ -580,7 +668,7 @@
     max-width: 100%;
     text-align: left;
     vertical-align: top;
-     width: 50%; 
+    width: 50%;
     min-width: 280px;
     background: var(--statblock-background-color);
     padding: 5px 3px 50px;
