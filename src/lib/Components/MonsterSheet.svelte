@@ -415,9 +415,15 @@
                     {#if trait.name.includes("Spellcasting")}
                       {#each addSpellIds(splitAroundRoll(line, findSpells(line, spell_list)), spell_list) as chunk}
                         {#if chunk.replace}
-                          <a  on:click={()=>{
-                            window.open(`#/spell/${chunk.spellId}`, '_blank', 'width=650')
-                          }}>{chunk.value}</a >
+                          <a
+                            on:click={() => {
+                              window.open(
+                                `#/spell/${chunk.spellId}`,
+                                "_blank",
+                                "width=650"
+                              );
+                            }}>{chunk.value}</a
+                          >
                         {:else}
                           {chunk.value}
                         {/if}

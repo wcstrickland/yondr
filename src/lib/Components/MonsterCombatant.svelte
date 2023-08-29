@@ -381,21 +381,64 @@
                     {#if trait.name.includes("Spellcasting")}
                       {#each addSpellIds(splitAroundRoll(line, findSpells(line, spell_list)), spell_list) as chunk}
                         {#if chunk.replace}
-                          <a  on:click={()=>{
-                            window.open(`#/spell/${chunk.spellId}`, '_blank', 'width=650')
-                          }}>{chunk.value}</a >
+                          <a
+                            on:click={() => {
+                              window.open(
+                                `#/spell/${chunk.spellId}`,
+                                "_blank",
+                                "width=650"
+                              );
+                            }}>{chunk.value}</a
+                          >
                         {:else}
                           {chunk.value}
                         {/if}
                       {/each}
-            <br>
+                      <br />
                     {:else}
-                      {line}
+                      {#each splitAroundRoll(line, findDamageStrings(line)) as chunk}
+                        {#if chunk.replace}
+                          <a
+                            on:click={() => {
+                              let roll =
+                                `${trait.name}: ` +
+                                generateRollText(
+                                  extractRoll(chunk.value).num,
+                                  extractRoll(chunk.value).sides,
+                                  extractRoll(chunk.value).mod
+                                );
+                              toast.push(roll, { duration: 10000 });
+                              navigator.clipboard.writeText(roll);
+                            }}>{chunk.value}</a
+                          >
+                        {:else}
+                          {chunk.value}
+                        {/if}
+                      {/each}
+
                       <br />
                     {/if}
                   {/each}
                 {:else}
-                  {trait.text}
+                  {#each splitAroundRoll(trait.text, findDamageStrings(trait.text)) as chunk}
+                    {#if chunk.replace}
+                      <a
+                        on:click={() => {
+                          let roll =
+                            `${trait.name}: ` +
+                            generateRollText(
+                              extractRoll(chunk.value).num,
+                              extractRoll(chunk.value).sides,
+                              extractRoll(chunk.value).mod
+                            );
+                          toast.push(roll, { duration: 10000 });
+                          navigator.clipboard.writeText(roll);
+                        }}>{chunk.value}</a
+                      >
+                    {:else}
+                      {chunk.value}
+                    {/if}
+                  {/each}
                 {/if}
                 <br />
                 <br />
@@ -481,11 +524,50 @@
               {/if}
               {#if Array.isArray(legend.text)}
                 {#each legend.text as line}
-                  {line}
+                  {#each splitAroundRoll(line, findDamageStrings(line)) as chunk}
+                    {#if chunk.replace}
+                      <a
+                        on:click={() => {
+                          let roll =
+                            `${legend.name}: ` +
+                            generateRollText(
+                              extractRoll(chunk.value).num,
+                              extractRoll(chunk.value).sides,
+                              extractRoll(chunk.value).mod
+                            );
+                          toast.push(roll, { duration: 10000 });
+                          navigator.clipboard.writeText(roll);
+                        }}>{chunk.value}</a
+                      >
+                    {:else}
+                      {chunk.value}
+                    {/if}
+                  {/each}
+
                   <br />
                 {/each}
               {:else}
-                {legend.text}
+                {#each splitAroundRoll(legend.text, findDamageStrings(legend.text)) as chunk}
+                  {#if chunk.replace}
+                    <a
+                      on:click={() => {
+                        let roll =
+                          `${legend.name}: ` +
+                          generateRollText(
+                            extractRoll(chunk.value).num,
+                            extractRoll(chunk.value).sides,
+                            extractRoll(chunk.value).mod
+                          );
+                        toast.push(roll, { duration: 10000 });
+                        navigator.clipboard.writeText(roll);
+                      }}>{chunk.value}</a
+                    >
+                  {:else}
+                    {chunk.value}
+                  {/if}
+                {/each}
+
+                <!-- {legend.text} -->
               {/if}
               <br />
               <br />
