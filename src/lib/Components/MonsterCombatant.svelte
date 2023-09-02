@@ -73,9 +73,20 @@
     return data[key] !== "" && Object.hasOwn(data, key);
   }
 
+  let isMobile =
+    navigator.userAgent.match(/Android/i) ||
+    navigator.userAgent.match(/iPhone/i) ||
+    navigator.userAgent.match(/iPad/i) ||
+    navigator.userAgent.match(/iPod/i) ||
+    navigator.userAgent.match(/Blackberry/i);
+
   function mounty(e){
-    e.scrollIntoView(true)
-    window.scrollBy({left:0, top:-260, behavior:"smooth"})
+    if(isMobile){
+      e.scrollIntoView(true)
+      window.scrollBy({left:0, top:-260})
+    }else{
+      e.scrollIntoView({block:"start", inline:"nearest", behavior:"smooth"})
+    }
   }
 </script>
 
