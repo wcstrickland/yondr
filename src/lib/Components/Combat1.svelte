@@ -9,7 +9,7 @@
   import MonsterCombatant from "./MonsterCombatant.svelte";
   import PlayerCard from "./PlayerCard.svelte";
   let participants = $participantStore;
-  participants = participants.sort((a, b) => b.init - a.init).reverse();
+  participants = participants.sort((a, b) => b.init - a.init);
 
   participantIndex.subscribe(
     (value) => (localStorage.participantIndex = value)

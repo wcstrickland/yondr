@@ -1,5 +1,6 @@
 <script>
   import { toast } from "@zerodevx/svelte-toast";
+  import { onMount } from "svelte";
   import {
     generateRollText,
     splitAroundRoll,
@@ -71,6 +72,11 @@
   function isPresent(key) {
     return data[key] !== "" && Object.hasOwn(data, key);
   }
+
+  function mounty(e){
+    e.scrollIntoView(true)
+    window.scrollBy({left:0, top:-260, behavior:"smooth"})
+  }
 </script>
 
 <svelte:head>
@@ -78,7 +84,7 @@
   <meta name="description" content="Yndr" />
 </svelte:head>
 
-<div class="post">
+<div class="post" use:mounty>
   <div class="stat-block">
     <hr class="orange-border" />
     <div class="section-left">
